@@ -4,41 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">رحلة دانتي في الجحيم | Inferno Experience</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@500;700&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #08070b;
-            --card-bg: #121019;
-            --accent-gold: #c5a059;
-            --accent-glow: #e2b769;
-            --text-main: #f3f3f3;
-            --text-muted: #9ba1a6;
-            --border-color: rgba(197, 160, 89, 0.2);
+            --bg-deep: #050307;
+            --card-bg: #0e0a12;
+            --accent-gold: #d4af37;
+            --accent-fire: #ff3b00;
+            --text-main: #e8e6e8;
+            --text-muted: #9e97a3;
+            --border-glow: rgba(212, 175, 55, 0.25);
+            --fire-glow: rgba(255, 59, 0, 0.4);
+        }
+
+        /* مؤشر الماوس الاحترافي (سيف ناري) */
+        body, * {
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='%23ff3b00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 17.5L3 6V3h3l11.5 11.5'%3E%3C/path%3E%3Cpath d='M13 19l6 6'%3E%3C/path%3E%3Cpath d='M16 16l4 4'%3E%3C/path%3E%3Cpath d='M19 21l2 2'%3E%3C/path%3E%3C/svg%3E"), auto;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg-deep);
             color: var(--text-main);
             font-family: 'Cairo', sans-serif;
             overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(139, 0, 0, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(255, 59, 0, 0.1) 0%, transparent 50%);
         }
 
-        /* شريط التنقل العلوي الفاخر */
+        /* النافبار العالمي */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 80px;
-            background: rgba(8, 7, 11, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
+            padding: 20px 60px;
+            background: rgba(5, 3, 7, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glow);
             position: fixed;
             top: 0;
             left: 0;
@@ -47,37 +56,38 @@
         }
 
         .logo {
-            font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.6rem;
             color: var(--accent-gold);
             font-weight: 900;
             letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--fire-glow);
         }
 
         .lang-switcher {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .lang-btn {
             background: transparent;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-glow);
             color: var(--text-main);
             padding: 6px 14px;
-            border-radius: 4px;
-            cursor: pointer;
+            border-radius: 6px;
             font-size: 0.9rem;
             font-family: 'Cairo', sans-serif;
+            font-weight: 700;
         }
 
         .lang-btn:hover, .lang-btn.active {
-            background: var(--accent-gold);
-            color: var(--bg-color);
-            border-color: var(--accent-gold);
-            font-weight: bold;
+            background: var(--accent-fire);
+            color: #fff;
+            border-color: var(--accent-fire);
+            box-shadow: 0 0 15px var(--fire-glow);
         }
 
-        /* الـ Hero Section */
+        /* الهيرو الرئيسي */
         header {
             height: 100vh;
             display: flex;
@@ -86,112 +96,188 @@
             align-items: center;
             text-align: center;
             padding: 0 20px;
-            background: linear-gradient(to bottom, rgba(8,7,11,0.6), var(--bg-color)), url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1920') no-repeat center center/cover;
-        }
-
-        header h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 4rem;
-            color: var(--accent-gold);
-            margin-bottom: 20px;
-            text-shadow: 0 0 30px rgba(197, 160, 89, 0.3);
-        }
-
-        header p {
-            font-size: 1.4rem;
-            color: var(--text-muted);
-            max-width: 700px;
-            font-style: italic;
-        }
-
-        /* محتوى الدوائر */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 100px 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            color: var(--accent-gold);
-            margin-bottom: 60px;
-            letter-spacing: 1px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-gold);
-            box-shadow: 0 20px 40px rgba(197, 160, 89, 0.15);
-        }
-
-        .card-img {
-            height: 220px;
-            background: #1a1724;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-gold);
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(to bottom, rgba(5,3,7,0.4), var(--bg-deep)), url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1920') no-repeat center center/cover;
             position: relative;
         }
 
-        .card-content {
-            padding: 30px;
+        header h1 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 4.2rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(255, 59, 0, 0.6), 0 0 60px rgba(139, 0, 0, 0.4);
         }
 
-        .card-tag {
+        header p {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            font-style: italic;
+            font-family: 'Cinzel', serif;
+        }
+
+        /* حاوية السكاشن */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-header h2 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 2.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* شبكة الكروت للـ 8 سكاشن */
+        .grid-8 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 35px;
+        }
+
+        .dante-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        .dante-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-fire);
+            box-shadow: 0 20px 50px rgba(255, 59, 0, 0.25);
+        }
+
+        /* أيقونة النار التفاعلية */
+        .fire-trigger {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            background: rgba(255, 59, 0, 0.1);
+            border: 1px solid var(--accent-fire);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .fire-trigger:hover {
+            background: var(--accent-fire);
+            box-shadow: 0 0 25px var(--accent-fire);
+            transform: scale(1.15) rotate(15deg);
+        }
+
+        .card-number {
             font-size: 0.85rem;
             color: var(--accent-gold);
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
+            letter-spacing: 3px;
+            font-weight: 700;
             display: block;
-            font-weight: bold;
+            margin-bottom: 15px;
         }
 
-        .card h3 {
+        .dante-card h3 {
             font-family: 'Cinzel', serif;
-            font-size: 1.6rem;
-            margin-bottom: 15px;
+            font-size: 1.8rem;
+            margin-bottom: 18px;
             color: var(--text-main);
         }
 
-        .card p {
+        .dante-card p {
             color: var(--text-muted);
             line-height: 1.8;
             font-size: 1.05rem;
+            margin-bottom: 25px;
+        }
+
+        /* سكشن المعلم دانتي المرئي */
+        .master-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            background: linear-gradient(135deg, #100818 0%, #08050c 100%);
+            border: 2px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 50px;
+            margin: 80px 0;
+        }
+
+        .master-img-box {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #1a0505 0%, #2e0808 100%);
+            border: 2px solid var(--accent-gold);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.8), 0 0 30px rgba(212, 175, 55, 0.15);
+        }
+
+        .master-img-box span {
+            font-family: 'Cinzel Decorative', serif;
+            color: var(--accent-gold);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .master-img-box p {
+            color: var(--text-muted);
+            font-style: italic;
+            font-family: 'Cinzel', serif;
+        }
+
+        .master-content h2 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+        }
+
+        .master-content p {
+            color: var(--text-muted);
+            line-height: 1.9;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
         }
 
         footer {
             text-align: center;
-            padding: 40px;
-            border-top: 1px solid var(--border-color);
+            padding: 50px;
+            border-top: 1px solid var(--border-glow);
             color: var(--text-muted);
-            font-size: 0.95rem;
             background: var(--card-bg);
+            font-family: 'Cinzel', serif;
         }
 
-        @media(max-width: 768px) {
+        @media(max-width: 900px) {
             nav { padding: 20px; }
-            header h1 { font-size: 2.8rem; }
+            header h1 { font-size: 3rem; }
+            .master-section { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -210,103 +296,157 @@
     <!-- الهيرو -->
     <header>
         <h1 id="hero-title">رحلة دانتي في الجحيم</h1>
-        <p id="hero-subtitle">"تجارب بصرية وتصميم عالمي يجسد أعماق الأساطير الخالدة"</p>
+        <p id="hero-subtitle">"ملحمة أدبية وبصرية تأخذك عبر الدوائر التسع للظلام المطلق"</p>
     </header>
 
-    <!-- الأقسام -->
     <div class="container">
-        <h2 class="section-title" id="circles-heading">دوائر الجحيم</h2>
-        
-        <div class="grid">
-            <!-- الدائرة الأولى -->
-            <div class="card">
-                <div class="card-img">Circle I - Limbo</div>
-                <div class="card-content">
-                    <span class="card-tag" id="tag-1">الدائرة الأولى</span>
-                    <h3 id="c1-title">اللِمبُو (Limbo)</h3>
-                    <p id="c1-desc">مقر حكماء وفلاسفة العالم القديم غير المعمدين. يعيشون في رغبة صامتة وأمل معلق بلا عذاب جسدي ولكن محرومون من نور الله.</p>
-                </div>
+
+        <div class="section-header">
+            <h2 id="sec-main-title">الدوائر والقصص الكبرى</h2>
+            <p id="sec-main-desc">استكشف العذابات والقصص الفريدة لكل دائرة من دوائر الجحيم الإلهي</p>
+        </div>
+
+        <!-- الـ 8 سكاشن الكبرى -->
+        <div class="grid-8">
+
+            <!-- 1. المقدمة والغابة -->
+            <div class="dante-card">
+                <div class="fire-trigger" onclick="igniteFire(this)" title="اضغط لتوليد نار">🔥</div>
+                <span class="card-number" id="t-s1">الـسـكـشـن الأول</span>
+                <h3 id="h-s1">الغابة المظلمة وضياع المعلم</h3>
+                <p id="p-s1">في منتصف عمر الإنسان، يجد دانتي نفسه ضائعاً في غابة مظلمة وموحشة، تفوح منها أهوال الضياع الفكري والروحي، قبل أن يظهر له الشاعر الروماني العظيم فيرجيل كمرشد ومنقذ.</p>
             </div>
 
-            <!-- الدائرة الثانية -->
-            <div class="card">
-                <div class="card-img">Circle II - Lust</div>
-                <div class="card-content">
-                    <span class="card-tag" id="tag-2">الدائرة الثانية</span>
-                    <h3 id="c2-title">عاصفة الشهوة</h3>
-                    <p id="c2-desc">بداية الجحيم الحقيقية. رياح جهنمية هوجاء لا تنقطع تذرو الخطاة الذين انقادوا لشهواتهم في فوضى أبدية لا تهادن.</p>
-                </div>
+            <!-- 2. الدائرة الأولى -->
+            <div class="dante-card">
+                <div class="fire-trigger" onclick="igniteFire(this)" title="اضغط لتوليد نار">🔥</div>
+                <span class="card-number" id="t-s2">الـسـكـشـن الثـانـي</span>
+                <h3 id="h-s2">الدائرة الأولى: اللِمبُو (Limbo)</h3>
+                <p id="p-s2">دار الفلاسفة والحكماء غير المعمدين (أرسطو، هوميروس). لا يعانون عذاباً جسدياً، بل يعيشون في رغبة صامتة وأمل معلق للأبد محرومين من رؤية نور الله.</p>
             </div>
 
-            <!-- الدائرة الثالثة -->
-            <div class="card">
-                <div class="card-img">Circle III - Gluttony</div>
-                <div class="card-content">
-                    <span class="card-tag" id="tag-3">الدائرة الثالثة</span>
-                    <h3 id="c3-title">وحل الشره</h3>
-                    <p id="c3-desc">أرواح غارقة في طين كريه تحت أمطار غزيرة وثلوج سوداء، يحرسهم الوحش المرعب سيربيروس ذو الرؤوس الثلاثة.</p>
-                </div>
+            <!-- 3. الدائرة الثانية -->
+            <div class="dante-card">
+                <div class="fire-trigger" onclick="igniteFire(this)" title="اضغط لتوليد نار">🔥</div>
+                <span class="card-number" id="t-s3">الـسـكـشـن الثـالـث</span>
+                <h3 id="h-s3">الدائرة الثانية: عاصفة الشهوة</h3>
+                <p id="p-s3">يحرسها الوحش مينوس. هنا تعصف رياح جهنمية هوجاء بالأرواح التي انقادوا لشهواتهم، وتدور بهم في دوامة حمراء حالكة بلا توقف ولا هدوء أبدي.</p>
+            </div>
+
+            <!-- 4. الدائرة الثالثة -->
+            <div class="dante-card">
+                <div class="fire-trigger" onclick="igniteFire(this)" title="اضغط لتوليد نار">🔥</div>
+                <span class="card-number" id="t-s4">الـسـكـشـن الـرابـع</span>
+                <h3 id="h-s4">الدائرة الثالثة: وحل النهم والشره</h3>
+                <p id="p-s4">أرواح غارقة في طين لزج وكريه تحت أمطار متجمدة وثلوج سوداء، يحرسهم الوحش المرعب سيربيروس ذو الرؤوس الثلاثة الذي يمزقهم بلا رحمة.</p>
+            </div>
+
+            <!-- 5. الدائرة الرابعة -->
+            <div class="dante-card">
+                <div class="fire-trigger" onclick="igniteFire(this)" title="اضغط لتوليد نار">🔥</div>
+                <span class="card-number" id="t-s5">الـسـكـشـن الخـامـس</span>
+                <h3 id="h-s5">الدائرة الرابعة: البخل والإسراف</h3>
+                <p id="p-s5">فريقان يتصادمان بلا ركون؛ البخلاء والمسرفون يدفعون صخوراً ثقيلة بأعناقهم، يوبخ بعضهم بعضاً في دورة أبدية تعكس هوسهم بالمال.</p>
+            </div>
+
+            <!-- 6. الدائرة الخامسة -->
+            <div class="dante-card">
+                <div class="fire-trigger" onclick="igniteFire(this)" title="اضغط لتوليد نار">🔥</div>
+                <span class="card-number" id="t-s6">الـسـكـشـن السـادس</span>
+                <h3 id="h-s6">الدائرة الخامسة: مستنقع ستيکس والغضب</h3>
+                <p id="p-s6">مياه مستنقع مظلم وكريه يغرق فيه الغاضبون والساخطون، يضرب بعضهم بعضاً بوحشية تحت سطح المياه الآسنة بينما يتخبط الناקمون بصمت.</p>
+            </div>
+
+            <!-- 7. مدينة ديس -->
+            <div class="dante-card">
+                <div class="fire-trigger" onclick="igniteFire(this)" title="اضغط لتوليد نار">🔥</div>
+                <span class="card-number" id="t-s7">الـسـكـشـن السـابـع</span>
+                <h3 id="h-s7">مدينة ديس والأبواب الحديدية</h3>
+                <p id="p-s7">أسوار الجحيم السفلي المحترقة تحميها الشياطين الساقطة وملائكة التمرد. هنا تشتد الأتون وتتداخل خطايا العنف والهرطقة والخبث.</p>
+            </div>
+
+            <!-- 8. الخاتمة النارية -->
+            <div class="dante-card">
+                <div class="fire-trigger" onclick="igniteFire(this)" title="اضغط لتوليد نار">🔥</div>
+                <span class="card-number" id="t-s8">الـسـكـشـن الثـامـن</span>
+                <h3 id="h-s8">الخروج نحو النور والأمل</h3>
+                <p id="p-s8">بعد رحلة مرعبة عبر أعماق الجحيم والشر المطلق، يصعد دانتي وفيرجيل عبر ممر خفي حتى يلمحا من بعيد نجوم السماء، لتبدأ رحلة المطهر الخالدة.</p>
+            </div>
+
+        </div>
+
+        <!-- سكشن المعلم دانتي المرئي -->
+        <div class="master-section">
+            <div class="master-img-box">
+                <span>⚔️ Dante Alighieri ⚔️</span>
+                <p id="master-img-caption">"الشاعر الإيطالي العظيم وكاتب الكوميديا الإلهية"</p>
+            </div>
+            <div class="master-content">
+                <h2 id="master-title">فلسفة الرحلة والظلال</h2>
+                <p id="master-desc1">لم تكن رحلة دانتي مجرد قصة خيالية عن العذاب، بل كانت نقداً لاذعاً للسياسة والأخلاق والروح البشرية في العصور الوسطى.</p>
+                <p id="master-desc2">من خلال استكشاف أعمق طبقات الجحيم، يكتشف الكاتب أن الخطايا ليست سوى انعكاس لخيارات الإنسان الحرة، وأن الخروج من الظلام مستحيل دون وعي وتبصر.</p>
             </div>
         </div>
+
     </div>
 
     <footer id="footer-text">
-        Inferno Experience &copy; 2026 - جميع الحقوق محفوظة
+        Inferno Experience &copy; 2026 - تصميم عالمي متكامل لرحلة دانتي
     </footer>
 
-    <!-- سكربت اللغات -->
     <script>
+        // تأثير النار عند الضغط على الأيقونة
+        function igniteFire(el) {
+            el.style.background = '#ff3b00';
+            el.style.boxShadow = '0 0 30px #ff3b00, 0 0 60px #ff0000';
+            el.style.transform = 'scale(1.3) rotate(360deg)';
+            setTimeout(() => {
+                el.style.background = 'rgba(255, 59, 0, 0.1)';
+                el.style.boxShadow = 'none';
+                el.style.transform = 'scale(1) rotate(0deg)';
+            }, 600);
+        }
+
+        // قاموس الترجمات للغات الثلاثة
         const translations = {
             ar: {
                 dir: 'rtl',
                 title: 'رحلة دانتي في الجحيم | Inferno Experience',
                 heroTitle: 'رحلة دانتي في الجحيم',
-                heroSubtitle: '"تجارب بصرية وتصميم عالمي يجسد أعماق الأساطير الخالدة"',
-                circlesHeading: 'دوائر الجحيم',
-                tag1: 'الدائرة الأولى',
-                c1Title: 'اللِمبُو (Limbo)',
-                c1Desc: 'مقر حكماء وفلاسفة العالم القديم غير المعمدين. يعيشون في رغبة صامتة وأمل معلق بلا عذاب جسدياً ولكن محرومون من نور الله.',
-                tag2: 'الدائرة الثانية',
-                c2Title: 'عاصفة الشهوة',
-                c2Desc: 'بداية الجحيم الحقيقية. رياح جهنمية هوجاء لا تنقطع تذرو الخطاة الذين انقادوا لشهواتهم في فوضى أبدية لا تهادن.',
-                tag3: 'الدائرة الثالثة',
-                c3Title: 'وحل الشره',
-                c3Desc: 'أرواح غارقة في طين كريه تحت أمطار غزيرة وثلوج سوداء، يحرسهم الوحش المرعب سيربيروس ذو الرؤوس الثلاثة.',
-                footer: 'Inferno Experience © 2026 - جميع الحقوق محفوظة'
+                heroSubtitle: '"ملحمة أدبية وبصرية تأخذك عبر الدوائر التسع للظلام المطلق"',
+                secMainTitle: 'الدوائر والقصص الكبرى',
+                secMainDesc: 'استكشف العذابات والقصص الفريدة لكل دائرة من دوائر الجحيم الإلهي',
+                masterTitle: 'فلسفة الرحلة والظلال',
+                masterDesc1: 'لم تكن رحلة دانتي مجرد قصة خيالية عن العذاب، بل كانت نقداً لاذعاً للسياسة والأخلاق والروح البشرية في العصور الوسطى.',
+                masterDesc2: 'من خلال استكشاف أعمق طبقات الجحيم، يكتشف الكاتب أن الخطايا ليست سوى انعكاس لخيارات الإنسان الحرة، وأن الخروج من الظلام مستحيل دون وعي وتبصر.',
+                masterImgCaption: '"الشاعر الإيطالي العظيم وكاتب الكوميديا الإلهية"',
+                footer: 'Inferno Experience © 2026 - تصميم عالمي متكامل لرحلة دانتي'
             },
             en: {
                 dir: 'ltr',
                 title: 'Dante’s Inferno | Inferno Experience',
                 heroTitle: 'Dante’s Inferno Experience',
-                heroSubtitle: '"Visual experiences and global design embodying the depths of timeless mythology"',
-                circlesHeading: 'The Circles of Hell',
-                tag1: 'Circle One',
-                c1Title: 'Limbo',
-                c1Desc: 'Home to the unbaptized wise men and philosophers of the ancient world. They live in silent longing without physical torment.',
-                tag2: 'Circle Two',
-                c2Title: 'The Storm of Lust',
-                c2Desc: 'The true beginning of Hell. Incessant infernal winds whip the souls who yielded to their passions into eternal chaos.',
-                tag3: 'Circle Three',
-                c3Title: 'Gluttony',
-                c3Desc: 'Souls drowning in foul mud beneath heavy rain and black snow, guarded by the terrifying three-headed beast Cerberus.',
-                footer: 'Inferno Experience © 2026 - All Rights Reserved'
+                heroSubtitle: '"A literary and visual epic taking you through the nine circles of absolute darkness"',
+                secMainTitle: 'The Circles & Epic Tales',
+                secMainDesc: 'Explore the torments and unique stories of each circle of the Divine Inferno',
+                masterTitle: 'The Philosophy of the Journey',
+                masterDesc1: 'Dante’s journey was not merely a fictional tale of torment, but a scathing critique of medieval politics, morals, and the human soul.',
+                masterDesc2: 'Through exploring the deepest layers of hell, the author discovers that sins are reflections of free human choices, and escaping darkness requires absolute awareness.',
+                masterImgCaption: '"The great Italian poet and author of the Divine Comedy"',
+                footer: 'Inferno Experience © 2026 - Global Immersive Inferno Design'
             },
             fr: {
                 dir: 'ltr',
                 title: 'L’Enfer de Dante | Inferno Experience',
                 heroTitle: 'L’Enfer de Dante',
-                heroSubtitle: '"Expériences visuelles et design mondial incarnant les profondeurs de la mythologie intemporelle"',
-                circlesHeading: 'Les Cercles de l’Enfer',
-                tag1: 'Premier Cercle',
-                c1Title: 'Les Limbes',
-                c1Desc: 'Demeure des sages et philosophes non baptisés du monde antique. Ils vivent dans un désir silencieux, privés de la lumière.',
-                tag2: 'Deuxième Cercle',
-                c2Title: 'La Tempête de la Luxure',
-                c2Desc: 'Le vrai début de l’enfer. Des vents infernaux incessants emportent les âmes qui ont cédé à leurs passions dans un chaos éternel.',
-                tag3: 'Troisième Cercle',
-                c3Title: 'La Gourmandise',
-                c3Desc: 'Des âmes noyées dans une boue fétide sous une pluie torrentielle et une neige noire, gardées par le monstre à trois têtes Cerbère.',
-                footer: 'Inferno Experience © 2026 - Tous droits réservés'
+                heroSubtitle: '"Une épopée littéraire et visuelle à travers les neuf cercles des ténèbres absolues"',
+                secMainTitle: 'Les Cercles & Récits Épiques',
+                secMainDesc: 'Explorez les tourments et les histoires uniques de chaque cercle de l’Enfer divin',
+                masterTitle: 'La Philosophie du Voyage',
+                masterDesc1: 'Le voyage de Dante n’était pas seulement un conte de tourment, mais une critique acerbe de la politique médiévale et de l’âme humaine.',
+                masterDesc2: 'En explorant les couches les plus profondes, l’auteur découvre que les péchés ne sont que le reflet des choix humains.',
+                masterImgCaption: '"Le grand poète italien et auteur de la Divine Comédie"',
+                footer: 'Inferno Experience © 2026 - Design Immersif Mondial'
             }
         };
 
@@ -319,20 +459,12 @@
             document.getElementById('page-title').innerText = t.title;
             document.getElementById('hero-title').innerText = t.heroTitle;
             document.getElementById('hero-subtitle').innerText = t.heroSubtitle;
-            document.getElementById('circles-heading').innerText = t.circlesHeading;
-            
-            document.getElementById('tag-1').innerText = t.tag1;
-            document.getElementById('c1-title').innerText = t.c1Title;
-            document.getElementById('c1-desc').innerText = t.c1Desc;
-
-            document.getElementById('tag-2').innerText = t.tag2;
-            document.getElementById('c2-title').innerText = t.c2Title;
-            document.getElementById('c2-desc').innerText = t.c2Desc;
-
-            document.getElementById('tag-3').innerText = t.tag3;
-            document.getElementById('c3-title').innerText = t.c3Title;
-            document.getElementById('c3-desc').innerText = t.c3Desc;
-
+            document.getElementById('sec-main-title').innerText = t.secMainTitle;
+            document.getElementById('sec-main-desc').innerText = t.secMainDesc;
+            document.getElementById('master-title').innerText = t.masterTitle;
+            document.getElementById('master-desc1').innerText = t.masterDesc1;
+            document.getElementById('master-desc2').innerText = t.masterDesc2;
+            document.getElementById('master-img-caption').innerText = t.masterImgCaption;
             document.getElementById('footer-text').innerText = t.footer;
         }
     </script>
