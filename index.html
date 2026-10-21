@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">رحلة دانتي في الجحيم | Inferno Experience</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title id="page-title">نظرية دانتي في الجحيم | Inferno Theory Presentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #030205;
-            --card-bg: #0a070f;
-            --accent-gold: #d4af37;
-            --accent-fire: #ff3b00;
-            --text-main: #f3edf7;
-            --text-muted: #9b93a3;
-            --border-glow: rgba(212, 175, 55, 0.25);
+            --bg-color: #0b090e;
+            --card-bg: #131018;
+            --accent-gold: #c5a059;
+            --accent-fire: #d9381e;
+            --text-main: #f1edf5;
+            --text-muted: #948d9e;
+            --border-color: rgba(197, 160, 89, 0.15);
         }
 
-        /* مؤشر السيف الناري */
+        /* مؤشر سيف ناري راقي وهادئ */
         body, * {
-            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ff3b00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 17.5L3 6V3h3l11.5 11.5'%3E%3C/path%3E%3Cpath d='M13 19l6 6'%3E%3C/path%3E%3C/svg%3E"), auto;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23d9381e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 17.5L3 6V3h3l11.5 11.5'%3E%3C/path%3E%3Cpath d='M13 19l6 6'%3E%3C/path%3E%3C/svg%3E"), auto;
         }
 
         * {
@@ -29,21 +29,22 @@
         }
 
         body {
-            background-color: var(--bg-deep);
+            background-color: var(--bg-color);
             color: var(--text-main);
             font-family: 'Cairo', sans-serif;
             overflow-x: hidden;
+            line-height: 1.8;
         }
 
-        /* الهيدر المحسن الفخم */
+        /* هيدر نظيف وراقي */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 60px;
-            background: rgba(3, 2, 5, 0.95);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border-glow);
+            padding: 25px 60px;
+            background: rgba(11, 9, 14, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
             position: fixed;
             top: 0;
             left: 0;
@@ -53,326 +54,192 @@
 
         .logo {
             font-family: 'Cinzel', serif;
-            font-size: 1.7rem;
+            font-size: 1.4rem;
             color: var(--accent-gold);
-            font-weight: 900;
-            letter-spacing: 3px;
+            font-weight: 700;
+            letter-spacing: 2px;
         }
 
         .lang-switcher {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .lang-btn {
             background: transparent;
-            border: 1px solid var(--border-glow);
+            border: 1px solid var(--border-color);
             color: var(--text-main);
-            padding: 6px 16px;
-            border-radius: 6px;
-            font-size: 0.95rem;
-            font-family: 'Cairo', sans-serif;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
             font-weight: 600;
         }
 
         .lang-btn:hover, .lang-btn.active {
-            background: var(--accent-fire);
-            color: #fff;
-            border-color: var(--accent-fire);
-            box-shadow: 0 0 20px rgba(255, 59, 0, 0.5);
+            background: var(--accent-gold);
+            color: var(--bg-color);
+            border-color: var(--accent-gold);
         }
 
-        /* الهيرو */
+        /* هيرو برزنتيشن فخم */
         header {
-            height: 95vh;
+            min-height: 85vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 20px;
-            background: linear-gradient(to bottom, rgba(3,2,5,0.4), var(--bg-deep)), url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1920') no-repeat center center/cover;
-            position: relative;
+            padding: 120px 20px 60px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            background: rgba(197, 160, 89, 0.1);
+            color: var(--accent-gold);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
         }
 
         header h1 {
             font-family: 'Cinzel', serif;
-            font-size: 4.2rem;
-            color: var(--accent-gold);
+            font-size: 3.5rem;
+            color: var(--text-main);
             margin-bottom: 20px;
-            text-shadow: 0 0 35px rgba(255, 59, 0, 0.7);
+            font-weight: 700;
         }
 
         header p {
-            font-size: 1.45rem;
+            font-size: 1.25rem;
             color: var(--text-muted);
-            max-width: 800px;
-            font-style: italic;
-            font-family: 'Cinzel', serif;
+            max-width: 750px;
+            line-height: 1.9;
         }
 
+        /* حاوية المحتوى الرئيسي */
         .container {
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 80px 20px;
+            padding: 40px 20px 100px;
         }
 
-        .main-title {
-            text-align: center;
+        .section-title {
             font-family: 'Cinzel', serif;
-            font-size: 2.8rem;
+            font-size: 2.2rem;
             color: var(--accent-gold);
-            margin-bottom: 60px;
+            margin-bottom: 40px;
+            text-align: center;
         }
 
-        /* الـ 10 سكاشن الكبرى */
-        .sections-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 45px;
-        }
-
-        .inferno-section-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-glow);
-            border-radius: 16px;
+        /* شبكة العرض التقديمي (Portfolio Grid Style) */
+        .presentation-grid {
             display: grid;
-            grid-template-columns: 380px 1fr;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .presentation-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .card-img-box {
+            width: 100%;
+            height: 220px;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            border: 1px solid var(--border-color);
         }
 
-        .inferno-section-card:hover {
-            border-color: var(--accent-fire);
-            box-shadow: 0 20px 50px rgba(255, 59, 0, 0.3);
-            transform: translateY(-5px);
-        }
-
-        .sec-img {
-            position: relative;
-            height: 100%;
-            min-height: 280px;
-        }
-
-        .sec-img img {
+        .card-img-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             filter: brightness(0.85);
         }
 
-        .sec-body {
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .sec-top-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .sec-badge {
-            font-size: 0.85rem;
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 700;
-        }
-
-        .fire-btn {
-            background: rgba(255, 59, 0, 0.12);
-            border: 1px solid var(--accent-fire);
-            color: var(--accent-fire);
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            cursor: pointer;
-        }
-
-        .fire-btn:hover {
-            background: var(--accent-fire);
-            color: #fff;
-            box-shadow: 0 0 20px var(--accent-fire);
-        }
-
-        .inferno-section-card h3 {
+        .card-content h3 {
             font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
+            font-size: 1.5rem;
             color: var(--text-main);
-        }
-
-        .inferno-section-card p {
-            color: var(--text-muted);
-            line-height: 1.9;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
-
-        .source-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--accent-gold);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 600;
-            border-bottom: 1px dashed var(--accent-gold);
-            padding-bottom: 2px;
-            width: fit-content;
-        }
-
-        .source-link:hover {
-            color: var(--accent-fire);
-            border-color: var(--accent-fire);
-        }
-
-        /* سكشن الاقتباسات */
-        .quotes-section {
-            margin-top: 100px;
-            text-align: center;
-            background: linear-gradient(135deg, #140b20 0%, #07040d 100%);
-            border: 2px solid var(--border-glow);
-            border-radius: 20px;
-            padding: 60px 40px;
-            box-shadow: 0 0 45px rgba(212, 175, 55, 0.12);
-        }
-
-        .quotes-section h2 {
-            font-family: 'Cinzel', serif;
-            font-size: 2.3rem;
-            color: var(--accent-gold);
-            margin-bottom: 30px;
-        }
-
-        .quote-box {
-            font-family: 'Cinzel', serif;
-            font-size: 1.55rem;
-            color: var(--text-main);
-            font-style: italic;
-            max-width: 800px;
-            margin: 0 auto 20px;
-            line-height: 1.8;
-            text-shadow: 0 0 20px rgba(255,59,0,0.4);
-        }
-
-        .quote-author {
-            color: var(--accent-gold);
-            font-size: 1.15rem;
-            letter-spacing: 2px;
-        }
-
-        /* سكشن الصوت الحقيقي */
-        .audio-box {
-            text-align: center;
-            margin-top: 80px;
-            padding: 60px;
-            background: rgba(255, 59, 0, 0.04);
-            border: 1px dashed var(--accent-fire);
-            border-radius: 20px;
-        }
-
-        .scream-action-btn {
-            background: linear-gradient(135deg, #8b0000 0%, #ff3b00 100%);
-            color: white;
-            border: none;
-            padding: 16px 40px;
-            font-size: 1.25rem;
-            font-family: 'Cinzel', serif;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 0 0 25px rgba(255, 59, 0, 0.5);
-            margin-top: 25px;
-            font-weight: bold;
-        }
-
-        .scream-action-btn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 40px rgba(255, 59, 0, 0.9);
-        }
-
-        /* Footer فخم وعالمي ملكي */
-        footer {
-            background: #020104;
-            border-top: 1px solid var(--border-glow);
-            padding: 80px 20px 40px;
-            margin-top: 120px;
-        }
-
-        .footer-grid {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-
-        .footer-col h3 {
-            font-family: 'Cinzel', serif;
-            color: var(--accent-gold);
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-        }
-
-        .footer-col p {
-            color: var(--text-muted);
-            line-height: 1.8;
-            font-size: 1rem;
-        }
-
-        .footer-col ul {
-            list-style: none;
-        }
-
-        .footer-col ul li {
             margin-bottom: 12px;
         }
 
-        .footer-col ul li a {
+        .card-content p {
             color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
         }
 
-        .footer-col ul li a:hover {
+        .card-meta {
+            font-size: 0.85rem;
             color: var(--accent-gold);
-        }
-
-        .footer-bottom {
-            max-width: 1100px;
-            margin: 0 auto;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 30px;
-            text-align: center;
-            color: #6b6375;
-            font-size: 0.95rem;
             font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 8px;
         }
 
-        @media(max-width: 900px) {
-            .inferno-section-card { grid-template-columns: 1fr; }
-            .sec-img { height: 240px; }
-            nav { padding: 15px 20px; }
-            header h1 { font-size: 2.8rem; }
-            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+        /* سكشن الاقتباس الفخم */
+        .quote-showcase {
+            margin: 80px 0;
+            background: linear-gradient(135deg, #16111f 0%, #0b090e 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .quote-showcase p {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            color: var(--text-main);
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .quote-showcase span {
+            color: var(--accent-gold);
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+
+        /* فوتر نظيف واحترافي */
+        footer {
+            background: #060508;
+            border-top: 1px solid var(--border-color);
+            padding: 50px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+        }
+
+        @media(max-width: 850px) {
+            .presentation-card { grid-template-columns: 1fr; }
+            .card-img-box { height: 200px; }
+            nav { padding: 20px; }
+            header h1 { font-size: 2.6rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- النافبار -->
+    <!-- الهيدر -->
     <nav>
-        <div class="logo">INFERNO</div>
+        <div class="logo">INFERNO THEORY</div>
         <div class="lang-switcher">
             <button class="lang-btn active" onclick="setLang('ar')">AR</button>
             <button class="lang-btn" onclick="setLang('en')">EN</button>
@@ -382,162 +249,158 @@
 
     <!-- الهيرو -->
     <header>
-        <h1 id="hero-title">رحلة دانتي في الجحيم</h1>
-        <p id="hero-subtitle">"ملحمة أدبية وبصرية تأخذك عبر الدوائر التسع للظلام المطلق"</p>
+        <div class="badge" id="badge-text">عرض تقديمي فلسفي وأدبي</div>
+        <h1 id="hero-title">نظرية دانتي عن الجحيم</h1>
+        <p id="hero-subtitle">استكشاف هيكلي وفلسفي لملحمة "الكوميديا الإلهية". كيف تخيل الشاعر الإيطالي دانتي أليغييري أعماق الأرض، وكيف جسدت دوائر العذاب انعكاساً لخيارات الإنسان وأخلاقيات العصور الوسطى.</p>
     </header>
 
     <div class="container">
+        <h2 class="section-title" id="sec-title">محاور العرض والأطروحة</h2>
 
-        <h2 class="main-title" id="main-sec-title">الدوائر الكبرى وقصص العذاب التسع</h2>
-
-        <!-- الـ 10 سكاشن الكبرى بصور مخصصة ومنسقة بالمللي -->
-        <div class="sections-stack">
+        <!-- المحاور الأساسية بطريقة Portfolio منظمة -->
+        <div class="presentation-grid">
 
             <!-- 1 -->
-            <div class="inferno-section-card">
-                <div class="sec-img">
-                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600" alt="Dark Forest">
+            <div class="presentation-card">
+                <div class="card-img-box">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600" alt="Dark Descent">
                 </div>
-                <div class="sec-body">
-                    <div>
-                        <div class="sec-top-flex">
-                            <span class="sec-badge" id="tag-1">الـسـكـشـن الأول</span>
-                            <button class="fire-btn" onclick="ignite(this)">🔥</button>
-                        </div>
-                        <h3 id="h-1">الغابة المظلمة وضياع المعلم</h3>
-                        <p id="p-1">في منتصف مسيرة الحياة، يجد دانتي نفسه تائهاً في غابة حالكة السواد ترمز للخطيئة والضياع، قبل أن يظهر له الشاعر العظيم فيرجيل كمرشد ومنقذ روحي.</p>
-                    </div>
-                    <a href="https://ar.wikipedia.org/wiki/الكوميديا_الإلهية" target="_blank" class="source-link" id="src-1">📖 مصدر: موسوعة الكوميديا الإلهية (ويكيبيديا)</a>
+                <div class="card-content">
+                    <span class="card-meta" id="m-1">المحور الأول • البداية</span>
+                    <h3 id="h-1">الغابة المظلمة ورمزية الضياع</h3>
+                    <p id="p-1">تبدأ النظرية من نقطة انهيار أخلاقي وفكري يجد فيها الشاعر نفسه تائهاً، لتبدأ الرحلة بمساعدة المرشد فيرجيل نحو أعماق النفس البشرية.</p>
                 </div>
             </div>
 
             <!-- 2 -->
-            <div class="inferno-section-card">
-                <div class="sec-img">
-                    <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=600" alt="Limbo Castle">
+            <div class="presentation-card">
+                <div class="card-img-box">
+                    <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=600" alt="The Circles">
                 </div>
-                <div class="sec-body">
-                    <div>
-                        <div class="sec-top-flex">
-                            <span class="sec-badge" id="tag-2">الـسـكـشـن الثـانـي</span>
-                            <button class="fire-btn" onclick="ignite(this)">🔥</button>
-                        </div>
-                        <h3 id="h-2">الدائرة الأولى: اللِمبُو (Limbo)</h3>
-                        <p id="p-2">مأوى الفلاسفة والحكماء غير المعمدين (أرسطو وهوميروس). لا يعانون عذاباً بدنياً، بل يعيشون في رغبة صامتة محرومين أبدياً من رؤية النور الإلهي.</p>
-                    </div>
-                    <a href="https://www.britannica.com/topic/Dantes-Inferno" target="_blank" class="source-link" id="src-2">📖 مصدر: موسوعة بريتانيكا للأدب</a>
+                <div class="card-content">
+                    <span class="card-meta" id="m-2">المحور الثاني • الهيكل</span>
+                    <h3 id="h-2">دوائر الجحيم التسع وهندسة العقاب</h3>
+                    <p id="p-2">ينقسم الجحيم إلى مخروط هابط متدرج الاتساع، حيث تتدرج الخطايا من الشهوة وضعف التحكم بالنفس وصولاً إلى الخيانة والشر المطلق في القاع المتجمد.</p>
                 </div>
             </div>
 
             <!-- 3 -->
-            <div class="inferno-section-card">
-                <div class="sec-img">
-                    <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=600" alt="Lust Storm">
+            <div class="presentation-card">
+                <div class="card-img-box">
+                    <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=600" alt="Justice">
                 </div>
-                <div class="sec-body">
-                    <div>
-                        <div class="sec-top-flex">
-                            <span class="sec-badge" id="tag-3">الـسـكـشـن الثـالـث</span>
-                            <button class="fire-btn" onclick="ignite(this)">🔥</button>
-                        </div>
-                        <h3 id="h-3">الدائرة الثانية: عاصفة الشهوة</h3>
-                        <p id="p-3">يحرسها الوحش مينوس. تعصف رياح جهنمية عمياء بالأرواح التي استسلمت لأهواء الجسد، وتدور بهم في دوامة أبدية صاخبة لا تهدأ ولا ترحم.</p>
-                    </div>
-                    <a href="https://italyclassics.com/dante-inferno-circles" target="_blank" class="source-link" id="src-3">📖 مصدر: أرشيف دراسات دانتي</a>
+                <div class="card-content">
+                    <span class="card-meta" id="m-3">المحور الثالث • الفلسفة</span>
+                    <h3 id="h-3">مبدأ القصاص العادل (Contrapasso)</h3>
+                    <p id="p-3">فلسفة عقابية عبقرية تعني أن العقوبة تعكس الخطيئة ذاتها؛ فالشهوانيون تعصف بهم الرياح تماماً كما تقاذفتهم أهواء الدنيا بلا استقرار.</p>
                 </div>
             </div>
 
             <!-- 4 -->
-            <div class="inferno-section-card">
-                <div class="sec-img">
-                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600" alt="Gluttony Mud">
+            <div class="presentation-card">
+                <div class="card-img-box">
+                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600" alt="Politics">
                 </div>
-                <div class="sec-body">
-                    <div>
-                        <div class="sec-top-flex">
-                            <span class="sec-badge" id="tag-4">الـسـكـشـن الـرابـع</span>
-                            <button class="fire-btn" onclick="ignite(this)">🔥</button>
-                        </div>
-                        <h3 id="h-4">الدائرة الثالثة: وحل النهم والشره</h3>
-                        <p id="p-4">أرواح غارقة في طين لزج تحت أمطار متجمدة وثلوج سوداء، يحرسهم الوحش سيربيروس ذو الرؤوس الثلاثة الذي يمزق الخطاة بلا شفقة.</p>
-                    </div>
-                    <a href="https://www.history.com/topics/renaissance/dante-alighieri" target="_blank" class="source-link" id="src-4">📖 مصدر: تاريخ الأدب الإيطالي</a>
+                <div class="card-content">
+                    <span class="card-meta" id="m-4">المحور الرابع • الإسقاط</span>
+                    <h3 id="h-4">النقد السياسي والشخصي</h3>
+                    <p id="p-4">لم تكن النظرية مجرد سرد ديني، بل وثيقة سياسية حية وضع فيها دانتي خصومه السياسيين وباباوات عصره في دركات العذاب المختلفة.</p>
                 </div>
             </div>
 
-            <!-- 5 -->
-            <div class="inferno-section-card">
-                <div class="sec-img">
-                    <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=600" alt="Greed Boulders">
-                </div>
-                <div class="sec-body">
-                    <div>
-                        <div class="sec-top-flex">
-                            <span class="sec-badge" id="tag-5">الـسـكـشـن الخـامـس</span>
-                            <button class="fire-btn" onclick="ignite(this)">🔥</button>
-                        </div>
-                        <h3 id="h-5">الدائرة الرابعة: البخل والإسراف</h3>
-                        <p id="p-5">فريقان يتصادمان بلا ركون؛ البخلاء والمسرفون يدفعون صخوراً ثقيلة بأعناقهم، يوبخ بعضهم بعضاً في دورة أبدية تعكس هوسهم بالمال.</p>
-                    </div>
-                    <a href="https://www.worldhistory.org/Dante_Alighieri/" target="_blank" class="source-link" id="src-5">📖 مصدر: التاريخ العالمي القديم</a>
-                </div>
-            </div>
+        </div>
 
-            <!-- 6 -->
-            <div class="inferno-section-card">
-                <div class="sec-img">
-                    <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=600" alt="Wrath Styx">
-                </div>
-                <div class="sec-body">
-                    <div>
-                        <div class="sec-top-flex">
-                            <span class="sec-badge" id="tag-6">الـسـكـشـن السـادس</span>
-                            <button class="fire-btn" onclick="ignite(this)">🔥</button>
-                        </div>
-                        <h3 id="h-6">الدائرة الخامسة: مستنقع الغضب والغيظ</h3>
-                        <p id="p-6">مستنقع مظلم وكريه يغرق فيه الغاضبون والساخطون، يضرب بعضهم بعضاً بوحشية تحت سطح المياه الآسنة بينما يتخبط الناقمون بصمت أبدي.</p>
-                    </div>
-                    <a href="https://www.poetryfoundation.org/poets/dante-alighieri" target="_blank" class="source-link" id="src-6">📖 مصدر: مؤسسة الشعر العالمي</a>
-                </div>
-            </div>
+        <!-- سكشن الاقتباس -->
+        <div class="quote-showcase">
+            <p id="quote-text">"اخلعوا كل أمل يا من تلجون إلى هنا"</p>
+            <span id="quote-author">— بوابة الجحيم، الكوميديا الإلهية</span>
+        </div>
 
-            <!-- 7 -->
-            <div class="inferno-section-card">
-                <div class="sec-img">
-                    <img src="https://images.unsplash.com/photo-1542224566-6e85f2e6772f?q=80&w=600" alt="Dis City">
-                </div>
-                <div class="sec-body">
-                    <div>
-                        <div class="sec-top-flex">
-                            <span class="sec-badge" id="tag-7">الـسـكـشـن السـابـع</span>
-                            <button class="fire-btn" onclick="ignite(this)">🔥</button>
-                        </div>
-                        <h3 id="h-7">الدائرة السادسة: مدينة ديس والهرطقة</h3>
-                        <p id="p-7">أسوار الجحيم السفلي المحترقة تحميها الشياطين. هنا يعذب الهراطقة وأصحاب البدع داخل قبور نشتعل فيها النيران إلى الأبد.</p>
-                    </div>
-                    <a href="https://www.italianculture.net" target="_blank" class="source-link" id="src-7">📖 مصدر: الثقافة الإيطالية الكلاسيكية</a>
-                </div>
-            </div>
+    </div>
 
-            <!-- 8 -->
-            <div class="inferno-section-card">
-                <div class="sec-img">
-                    <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=600" alt="Violence River">
-                </div>
-                <div class="sec-body">
-                    <div>
-                        <div class="sec-top-flex">
-                            <span class="sec-badge" id="tag-8">الـسـكـشـن الثـامـن</span>
-                            <button class="fire-btn" onclick="ignite(this)">🔥</button>
-                        </div>
-                        <h3 id="h-8">الدائرة السابعة: نهر الدم والعنف</h3>
-                        <p id="p-8">مخصص للقتلة، الطغاة، المنتحرين، والمرابين. يعانون في أنهار من الدماء المغليّة والغابات الملعونة التي تحرصها الوحوش الأسطورية.</p>
-                    </div>
-                    <a href="https://www.themefilogy.com" target="_blank" class="source-link" id="src-8">📖 مصدر: أرشيف الملاحم الأدبية</a>
-                </div>
-            </div>
+    <!-- فوتر راقي -->
+    <footer id="footer-text">
+        Inferno Theory Presentation &copy; 2026 - عرض تقديمي فلسفي مبسط
+    </footer>
 
-            <!-- 9 -->
-            <div class="inferno-section-card">
-                <div class="sec-img">
-                    <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809
+    <!-- سكربت اللغات المحمي والمضبوط -->
+    <script>
+        const translations = {
+            ar: {
+                dir: 'rtl',
+                title: 'نظرية دانتي في الجحيم | Inferno Theory Presentation',
+                badgeText: 'عرض تقديمي فلسفي وأدبي',
+                heroTitle: 'نظرية دانتي في الجحيم',
+                heroSubtitle: 'استكشاف هيكلي وفلسفي لملحمة "الكوميديا الإلهية". كيف تخيل الشاعر الإيطالي دانتي أليغييري أعماق الأرض، وكيف جسدت دوائر العذاب انعكاساً لخيارات الإنسان وأخلاقيات العصور الوسطى.',
+                secTitle: 'محاور العرض والأطروحة',
+                
+                m1: 'المحور الأول • البداية', h1: 'الغابة المظلمة ورمزية الضياع', p1: 'تبدأ النظرية من نقطة انهيار أخلاقي وفكري يجد فيها الشاعر نفسه تائهاً، لتبدأ الرحلة بمساعدة المرشد فيرجيل نحو أعماق النفس البشرية.',
+                m2: 'المحور الثاني • الهيكل', h2: 'دوائر الجحيم التسع وهندسة العقاب', p2: 'ينقسم الجحيم إلى مخروط هابط متدرج الاتساع، حيث تتدرج الخطايا من الشهوة وضعف التحكم بالنفس وصولاً إلى الخيانة والشر المطلق في القاع المتجمد.',
+                m3: 'المحور الثالث • الفلسفة', h3: 'مبدأ القصاص العادل (Contrapasso)', p3: 'فلسفة عقابية عبقرية تعني أن العقوبة تعكس الخطيئة ذاتها؛ فالشهوانيون تعصف بهم الرياح تماماً كما تقاذفتهم أهواء الدنيا بلا استقرار.',
+                m4: 'المحور الرابع • الإسقاط', h4: 'النقد السياسي والشخصي', p4: 'لم تكن النظرية مجرد سرد ديني، بل وثيقة سياسية حية وضع فيها دانتي خصومه السياسيين وباباوات عصره في دركات العذاب المختلفة.',
+                
+                quoteText: '"اخلعوا كل أمل يا من تلجون إلى هنا"',
+                quoteAuthor: '— بوابة الجحيم، الكوميديا الإلهية',
+                footer: 'Inferno Theory Presentation © 2026 - عرض تقديمي فلسفي مبسط'
+            },
+            en: {
+                dir: 'ltr',
+                title: 'Dante’s Inferno Theory | Presentation',
+                badgeText: 'Philosophical & Literary Presentation',
+                heroTitle: 'Dante’s Inferno Theory',
+                heroSubtitle: 'A structural and philosophical exploration of the Divine Comedy. How the Italian poet Dante Alighieri envisioned the depths of the earth as a mirror of human choice.',
+                secTitle: 'Presentation Core Themes',
+                
+                m1: 'THEME I • THE BEGINNING', h1: 'The Dark Forest & The Lost Symbolism', p1: 'The theory begins at a point of moral and intellectual collapse where the poet finds himself lost, starting the journey toward the depths of the human soul.',
+                m2: 'THEME II • THE STRUCTURE', h2: 'The Nine Circles & Architecture of Punishment', p2: 'Hell is divided into a descending cone, grading sins from lust and lack of self-control to absolute betrayal in the frozen abyss.',
+                m3: 'THEME III • THE PHILOSOPHY', h3: 'The Principle of Contrapasso', p3: 'An ingenious punitive philosophy stating that the punishment reflects the sin itself; the lustful are swept by winds just like their earthly passions.',
+                m4: 'THEME IV • THE CRITIQUE', h4: 'Political & Personal Critique', p4: 'The theory was not merely a religious narrative, but a living political document where Dante placed his political rivals and corrupt popes.',
+                
+                quoteText: '"Abandon all hope, ye who enter here"',
+                quoteAuthor: '— The Gates of Hell, Divine Comedy',
+                footer: 'Inferno Theory Presentation © 2026 - Simplified Philosophical Presentation'
+            },
+            fr: {
+                dir: 'ltr',
+                title: 'Théorie de l’Enfer de Dante | Présentation',
+                badgeText: 'Présentation Philosophique & Littéraire',
+                heroTitle: 'Théorie de l’Enfer de Dante',
+                heroSubtitle: 'Une exploration structurelle et philosophique de la Divine Comédie, illustrant comment les cercles du tourment reflètent les choix humains et la morale médiévale.',
+                secTitle: 'Thèmes Principaux de l’Exposé',
+                
+                m1: 'THÈME I • LE DÉBUT', h1: 'La Forêt Obscure et le Symbolisme', p1: 'La théorie commence par un effondrement moral où le poète se perd, entamant le voyage vers les profondeurs de l’âme humaine.',
+                m2: 'THÈME II • LA STRUCTURE', h2: 'Les Neuf Cercles & l’Architecture du Châtiment', p2: 'L’enfer est divisé en un cône descendant, classant les péchés de la luxure jusqu’à la trahison absolue dans les abysses gelés.',
+                m3: 'THÈME III • LA PHILOSOPHIE', h3: 'Le Principe du Contrapasso', p3: 'Une philosophie punitive ingénieuse stipulant que le châtiment reflète le péché lui-même ; les luxurieux sont emportés par les vents.',
+                m4: 'THÈME IV • LA CRITIQUE', h4: 'Critique Politique & Personnelle', p4: 'La théorie était un document politique vivant où Dante plaça ses rivaux politiques et les papes corrompus de son époque.',
+                
+                quoteText: '"Vous qui entrez, laissez toute espérance"',
+                quoteAuthor: '— Les Portes de l’Enfer, Divine Comédie',
+                footer: 'Inferno Theory Presentation © 2026 - Présentation Philosophique Simplifiée'
+            }
+        };
+
+        function setLang(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const t = translations[lang];
+            document.getElementById('html-root').setAttribute('dir', t.dir);
+            document.getElementById('page-title').innerText = t.title;
+            document.getElementById('badge-text').innerText = t.badgeText;
+            document.getElementById('hero-title').innerText = t.heroTitle;
+            document.getElementById('hero-subtitle').innerText = t.heroSubtitle;
+            document.getElementById('sec-title').innerText = t.secTitle;
+
+            for(let i=1; i<=4; i++) {
+                document.getElementById('m-'+i).innerText = t['m'+i];
+                document.getElementById('h-'+i).innerText = t['h'+i];
+                document.getElementById('p-'+i).innerText = t['p'+i];
+            }
+
+            document.getElementById('quote-text').innerText = t.quoteText;
+            document.getElementById('quote-author').innerText = t.quoteAuthor;
+            document.getElementById('footer-text').innerText = t.footer;
+        }
+    </script>
+</body>
+</html>
