@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>نزول إلى الجحيم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500&display=swap">
+<style>
+/* Layout: one long descent. Each circle's column narrows as you go down, like the funnel of the Inferno; the sky and the embers change with every circle until everything freezes at the bottom. Single deliberate dark look. */
+@property --sky  { syntax: '<color>'; inherits: true; initial-value: #120d16; }
+@property --glow { syntax: '<color>'; inherits: true; initial-value: #e8743b; }
+:root{
+  --ink:#efe4d6;          /* parchment text */
+  --ink-dim:#b8a99a;
+  --ink-faint:#7d6f63;
+  --line:rgba(239,228,214,.14);
+  --ember:#e8743b;
+  --ash:#0b0809;
+  --f-display:"Aref Ruqaa","Noto Naskh Arabic",serif;
+  --f-body:"Noto Naskh Arabic","Amiri","Times New Roman",serif;
+  --f-ui:"IBM Plex Sans Arabic",system-ui,sans-serif;
+  color-scheme:dark;
+}
+html{background:var(--ash)}
+body{
+  background:var(--ash); color:var(--ink);
+  font-family:var(--f-body); font-size:18px; line-height:1.9;
+  transition:--sky 1.6s ease, --glow 1.6s ease;
+  overflow-x:hidden;
+}
+.sky{position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(120% 70% at 50% 110%, color-mix(in srgb,var(--glow) 28%,transparent), transparent 60%),
+    radial-gradient(90% 60% at 50% -10%, rgba(0,0,0,.6), transparent 70%),
+    var(--sky);}
+#fx{position:fixed; inset:0; z-index:1; pointer-events:none; width:100%; height:100%}
+.grain{position:fixed; inset:-50%; z-index:2; pointer-events:none; opacity:.07;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");}
+main{position:relative; z-index:3; overflow-x:clip;
+  padding-left:max(16px, env(safe-area-inset-left,0px));
+  padding-right:max(16px, env(safe-area-inset-right,0px));}
+
+/* ---------- Hero / gate ---------- */
+.gate{max-width:900px; margin:0 auto; padding-block:14vh 10vh; text-align:center; display:grid; gap:20px; justify-items:center}
+.eyebrow{font-family:var(--f-ui); font-size:13px; letter-spacing:.18em; color:var(--ink-dim)}
+.title{font-family:var(--f-display); font-weight:700; line-height:1; margin:0;
+  font-size:clamp(96px, 24vw, 240px);
+  background:linear-gradient(0deg,#5a0d06 0%,#b8290d 28%,#ef7a2c 52%,#ffd58a 70%,#fff4d6 82%);
+  background-size:100% 220%; background-position:0 100%;
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 0 28px rgba(232,116,59,.45));
+  animation:flame 4.5s ease-in-out infinite alternate;}
+@keyframes flame{from{background-position:0 100%}to{background-position:0 40%}}
+.sub{font-size:clamp(18px,2.6vw,22px); color:var(--ink-dim); max-width:36ch; margin:0; text-wrap:balance}
+.inscription{margin-top:28px; padding:26px 22px 22px; max-width:560px; width:100%;
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line); display:grid; gap:10px}
+.inscription .it{font-family:var(--f-ui); font-size:13px; color:var(--ink-faint); direction:ltr; letter-spacing:.04em; font-style:italic}
+.inscription q{font-family:var(--f-display); font-size:clamp(26px,5vw,38px); color:var(--ink); quotes:none; line-height:1.5}
+.inscription small{font-family:var(--f-ui); font-size:12px; color:var(--ink-faint); letter-spacing:.08em}
+.begin{margin-top:26px; font-family:var(--f-ui); font-size:14px; color:var(--ink-dim); text-decoration:none;
+  display:inline-grid; justify-items:center; gap:6px}
+.begin span.arrow{display:block; width:1px; height:46px; background:linear-gradient(var(--ember),transparent); animation:drip 2.2s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(.3);transform-origin:top}50%{transform:scaleY(1)}100%{transform:scaleY(.3);transform-origin:bottom}}
+.begin:focus-visible,.gauge button:focus-visible{outline:2px solid var(--glow); outline-offset:4px; border-radius:4px}
+
+.guide{max-width:640px; margin:0 auto 12vh; text-align:center; color:var(--ink-dim); font-size:17px}
+.guide b{color:var(--ink); font-weight:600}
+
+/* ---------- Circles (funnel) ---------- */
+.circle{--w:calc(880px - var(--i) * 36px);
+  max-width:var(--w); margin:0 auto; padding-block:12vh; position:relative;
+  display:grid; gap:28px;}
+.ring{position:absolute; inset-inline:0; top:4vh; margin:auto; width:min(100%,var(--w)); aspect-ratio:3/1;
+  border-radius:50%; border:1px solid color-mix(in srgb,var(--c) 55%,transparent);
+  box-shadow:0 0 60px -10px color-mix(in srgb,var(--c) 50%,transparent), inset 0 0 40px -12px color-mix(in srgb,var(--c) 60%,transparent);
+  opacity:.35; transition:opacity 1.2s ease; pointer-events:none}
+.circle.on .ring{opacity:.9}
+.c-head{display:flex; align-items:center; gap:22px; position:relative}
+.c-num{font-family:var(--f-display); font-size:clamp(84px,14vw,140px); line-height:.9; color:var(--c);
+  text-shadow:0 0 34px color-mix(in srgb,var(--c) 60%,transparent); flex:none; min-width:1ch; text-align:center}
+.c-titles{display:grid; gap:4px; min-width:0}
+.c-eyebrow{font-family:var(--f-ui); font-size:13px; letter-spacing:.1em; color:var(--ink-faint); margin:0}
+.c-titles h2{font-family:var(--f-display); font-weight:700; font-size:clamp(40px,7vw,64px); line-height:1.15; margin:0; text-wrap:balance}
+.c-sin{font-family:var(--f-ui); font-size:15px; color:var(--c); margin:0}
+.c-body{margin:0; max-width:62ch; font-size:19px; color:var(--ink)}
+.c-meta{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; border-top:1px solid var(--line)}
+.c-meta>div{padding:16px 0 4px; padding-inline-end:18px; display:grid; gap:4px; align-content:start; min-width:0}
+.c-meta>div+div{padding-inline-start:18px; border-inline-start:1px solid var(--line)}
+.c-meta dt{font-family:var(--f-ui); font-size:12px; letter-spacing:.12em; color:var(--ink-faint)}
+.c-meta dd{margin:0; font-size:16px; line-height:1.75; color:var(--ink-dim)}
+.figure{font-family:var(--f-display); font-size:clamp(22px,3.4vw,28px); color:var(--ink); margin:0; padding-inline-start:18px;
+  border-inline-start:2px solid var(--c); line-height:1.6}
+.figure cite{display:block; font-family:var(--f-ui); font-style:normal; font-size:13px; color:var(--ink-faint); margin-top:4px}
+
+/* Treachery: everything goes cold */
+.circle.ice .c-titles h2{color:#dff3ff; text-shadow:0 0 22px rgba(160,215,255,.5)}
+/* Lucifer: six bat wings behind, three ice shards for the three mouths */
+.lucifer{margin-top:40px; position:relative; display:grid; gap:14px; justify-items:center; text-align:center; padding-top:40px}
+.wings{position:absolute; inset-inline:-10%; top:-30px; height:380px; z-index:0; pointer-events:none; opacity:.95}
+.wings svg{width:100%; height:100%; overflow:visible}
+.wings path{fill:rgba(14,26,44,.85); stroke:rgba(150,205,255,.28); stroke-width:1.2}
+.wings .flap{transform-box:view-box; transform-origin:0px 0px; animation:flap 6s ease-in-out infinite alternate}
+.wings .flap.l{animation-delay:-3s}
+@keyframes flap{from{transform:scale(1,1)}to{transform:scale(1.04,.82)}}
+.lucifer>*:not(.wings){position:relative; z-index:1}
+.luc-name{font-family:var(--f-display); font-weight:700; margin:0; line-height:1;
+  font-size:clamp(80px,17vw,150px); color:#e9f6ff;
+  text-shadow:0 0 18px rgba(140,210,255,.7), 0 0 60px rgba(90,160,255,.45), 0 2px 0 #4a7aa8}
+.luc-it{margin:0; font-family:var(--f-ui); font-size:13px; font-style:italic; color:#8fb6d6; direction:ltr; letter-spacing:.05em}
+.luc-desc{margin:6px 0 0; color:var(--ink-dim); font-size:17px; max-width:54ch}
+.shards{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(12px,2vw,24px); width:min(1000px, calc(100vw - 32px)); justify-self:center; margin-top:34px; align-items:start}
+.shard{--f:#c9301f; position:relative; text-align:start; padding:44px 34px 40px; display:grid; gap:8px; min-width:0;
+  background:
+    linear-gradient(118deg, transparent 47%, rgba(220,242,255,.22) 48%, transparent 49.5%),
+    linear-gradient(64deg, transparent 68%, rgba(220,242,255,.14) 69%, transparent 70%),
+    linear-gradient(165deg, rgba(205,236,255,.2), rgba(110,170,225,.06) 55%, rgba(205,236,255,.14));
+  clip-path:polygon(0 4%,16% 0,44% 3%,70% 0,100% 4%,99% 93%,82% 100%,52% 96%,24% 100%,1% 95%);
+  transition:transform .5s ease}
+.shard:hover{transform:translateY(-6px)}
+.shard.main{transform:translateY(-22px); padding-block:52px 44px;
+  background:
+    linear-gradient(118deg, transparent 47%, rgba(220,242,255,.22) 48%, transparent 49.5%),
+    linear-gradient(165deg, rgba(255,210,200,.18), rgba(110,170,225,.07) 55%, rgba(205,236,255,.16))}
+.shard.main:hover{transform:translateY(-28px)}
+.sh-face{display:flex; align-items:center; gap:8px; font-family:var(--f-ui); font-size:12px; letter-spacing:.06em; color:#a9c8df}
+.sh-face::before{content:""; width:14px; height:14px; border-radius:50%; background:var(--f); flex:none;
+  box-shadow:0 0 12px var(--f), inset 0 0 0 1px rgba(255,255,255,.35)}
+.shard h4{margin:0; font-family:var(--f-display); font-weight:700; font-size:clamp(32px,4.4vw,44px); line-height:1.25; color:#f2f9ff;
+  text-shadow:0 0 16px rgba(150,210,255,.45)}
+.shard.main h4{font-size:clamp(36px,4.6vw,50px)}
+.sh-bet{font-family:var(--f-ui); font-size:14px; color:var(--f-t,#ffb4a6); margin:0}
+.shard p{margin:0; font-size:15.5px; line-height:1.8; color:#c7d6e2}
+
+/* ---------- Map ---------- */
+.mapsec{max-width:1040px; margin:0 auto; padding-block:6vh 12vh; display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); gap:clamp(24px,5vw,64px); align-items:center}
+.map-text{display:grid; gap:14px; min-width:0}
+.map-text h2{font-family:var(--f-display); font-weight:700; font-size:clamp(44px,7vw,72px); line-height:1.1; margin:0}
+.map-text p{margin:0; color:var(--ink-dim); font-size:18px}
+.map-text .hint{font-family:var(--f-ui); font-size:14px; color:var(--ember)}
+.map-wrap{min-width:0}
+.map-wrap svg{width:100%; height:auto; display:block; direction:ltr; overflow:visible}
+.lv{cursor:pointer}
+.lv .band{transition:fill-opacity .3s}
+.lv:hover .band,.lv:focus .band{fill-opacity:.7}
+.lv:hover .lbl-name,.lv:focus .lbl-name{fill:var(--ink)}
+.lv:focus{outline:none}
+.lv:focus-visible .band{stroke-width:3}
+
+/* ---------- Sound toggle ---------- */
+.snd{position:fixed; z-index:6; top:calc(14px + env(safe-area-inset-top,0px)); left:max(16px, calc(env(safe-area-inset-left,0px) + 12px));
+  display:inline-flex; align-items:center; gap:8px; font-family:var(--f-ui); font-size:13px; color:var(--ink);
+  padding:8px 14px; border-radius:999px; background:rgba(11,8,9,.7); border:1px solid color-mix(in srgb,var(--glow) 55%,transparent);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); cursor:pointer}
+.snd:hover{border-color:var(--glow)}
+.snd:focus-visible{outline:2px solid var(--glow); outline-offset:3px}
+.snd .w{display:none} .snd.on .w{display:inline} .snd.on .x{display:none}
+.snd.on{box-shadow:0 0 18px -4px var(--glow)}
+
+/* ---------- Sword cursor ---------- */
+html.has-sword, html.has-sword *{cursor:none !important}
+.sword{opacity:0; position:fixed; left:0; top:0; width:50px; height:50px; z-index:61; pointer-events:none; display:none; will-change:transform;
+  filter:drop-shadow(0 0 5px rgba(255,120,40,.9)) drop-shadow(0 0 14px rgba(255,70,20,.45))}
+html.has-sword .sword{display:block}
+.sword svg{display:block; transform-origin:2px 2px; transition:transform .18s ease}
+.sword.hot svg{transform:rotate(-14deg) scale(1.15)}
+.sword.down svg{transform:rotate(12deg) scale(.95)}
+#cur{position:fixed; inset:0; z-index:60; pointer-events:none; width:100%; height:100%}
+
+/* ---------- Exit ---------- */
+.exit{max-width:760px; margin:0 auto; padding-block:22vh 16vh; text-align:center; display:grid; gap:22px; justify-items:center}
+.exit q{font-family:var(--f-display); font-size:clamp(34px,7vw,62px); line-height:1.4; quotes:none; color:#f6f1ff;
+  text-shadow:0 0 30px rgba(190,200,255,.45); text-wrap:balance}
+.exit .it{font-family:var(--f-ui); font-size:14px; color:var(--ink-faint); direction:ltr; font-style:italic}
+.note{margin-top:40px; text-align:start; border-top:1px solid var(--line); padding-top:24px; display:grid; gap:12px; max-width:62ch}
+.note h3{font-family:var(--f-ui); font-size:13px; letter-spacing:.14em; color:var(--ink-faint); margin:0; font-weight:500}
+.note p{margin:0; font-size:17px; color:var(--ink-dim)}
+footer{position:relative; z-index:3; text-align:center; padding-block:30px 40px; font-family:var(--f-ui); font-size:12px; color:var(--ink-faint)}
+
+/* ---------- Funnel gauge (desktop) ---------- */
+.gauge{position:fixed; z-index:5; left:max(22px, calc(env(safe-area-inset-left,0px) + 12px)); top:50%; transform:translateY(-50%);
+  display:grid; gap:7px; justify-items:center}
+.gauge button{all:unset; cursor:pointer; height:9px; border-radius:50%; display:block;
+  border:1px solid rgba(239,228,214,.28); transition:background .5s, box-shadow .5s, border-color .5s}
+.gauge button:hover{border-color:var(--ink)}
+.gauge button.on{background:var(--glow); border-color:var(--glow); box-shadow:0 0 14px var(--glow)}
+.gauge .lbl{font-family:var(--f-ui); font-size:11px; color:var(--ink-faint); margin-top:8px; writing-mode:vertical-rl; letter-spacing:.1em}
+
+/* ---------- Depth pill (mobile) ---------- */
+.pill{position:fixed; z-index:5; bottom:calc(14px + env(safe-area-inset-bottom,0px)); left:50%; transform:translateX(-50%);
+  font-family:var(--f-ui); font-size:13px; color:var(--ink); padding:7px 16px; border-radius:999px;
+  background:rgba(11,8,9,.72); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  border:1px solid color-mix(in srgb,var(--glow) 60%,transparent); white-space:nowrap; display:none}
+.pill b{color:var(--glow); font-weight:500}
+
+@media (max-width:900px){
+  .gauge{display:none}
+  .pill{display:block}
+  .mapsec{grid-template-columns:1fr}
+}
+@media (max-width:700px){
+  .shards{grid-template-columns:1fr; gap:6px}
+  .shard,.shard.main{transform:none; padding:36px 26px 32px}
+  .shard.main{order:-1}
+  .shard:hover,.shard.main:hover{transform:none}
+  .wings{inset-inline:-30%; height:300px}
+}
+@media (max-width:640px){
+  body{font-size:17px}
+  .circle{max-width:100%; padding-block:9vh}
+  .c-head{gap:14px}
+  .c-meta{grid-template-columns:1fr}
+  .c-meta>div,.c-meta>div+div{padding-inline:0; border-inline-start:0; border-bottom:1px solid var(--line); padding-bottom:14px}
+  .c-body{font-size:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  .title,.begin span.arrow,.wings .flap{animation:none}
+  body{transition:none}
+}
+</style>
+<style>body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+
+<div class="sky" aria-hidden="true"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<nav class="gauge" aria-label="دوائر الجحيم"></nav>
+<div class="pill" aria-live="polite"><b id="pillNum">البوابة</b> · <span id="pillName">على حافة الهاوية</span></div>
+<button class="snd" id="snd" type="button" aria-pressed="false">
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path class="w" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/><path class="x" d="M16 9l6 6M22 9l-6 6"/></svg>
+  <span id="sndLbl">شغّل الأصوات</span>
+</button>
+<canvas id="cur" aria-hidden="true"></canvas>
+<div class="sword" id="sword" aria-hidden="true">
+  <svg viewBox="0 0 50 50" width="50" height="50">
+    <defs>
+      <linearGradient id="blade" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#fff2c4"/><stop offset=".35" stop-color="#ffb347"/><stop offset=".6" stop-color="#e6e9ef"/><stop offset="1" stop-color="#9aa3b2"/>
+      </linearGradient>
+    </defs>
+    <polygon points="2,2 31,27.6 27.6,31" fill="url(#blade)" stroke="#5a1a08" stroke-width=".6"/>
+    <line x1="5" y1="5" x2="28" y2="28" stroke="#ff6a1a" stroke-width=".7" opacity=".8"/>
+    <line x1="36.5" y1="23.5" x2="23.5" y2="36.5" stroke="#d7a640" stroke-width="3.6" stroke-linecap="round"/>
+    <line x1="31" y1="31" x2="41" y2="41" stroke="#3a1f12" stroke-width="3.8" stroke-linecap="round"/>
+    <line x1="33" y1="33" x2="39" y2="39" stroke="#7a4a2a" stroke-width="1" stroke-dasharray="1.2 1.4"/>
+    <circle cx="43" cy="43" r="3" fill="#d7a640" stroke="#5a3a10" stroke-width=".6"/>
+  </svg>
+</div>
+
+<main dir="rtl" lang="ar">
+
+  <header class="gate section" id="gate" data-sky="#120d16" data-glow="#e8743b" data-name="على حافة الهاوية" data-num="البوابة" data-mode="ember" data-heat="0.25">
+    <p class="eyebrow">الكوميديا الإلهية · دانتي أليغييري · ١٣٢٠م</p>
+    <h1 class="title">الجحيم</h1>
+    <p class="sub">رحلة نزول في تسع دوائر، كل دائرة أضيق وأعمق من التي قبلها، وكل خطيئة لها عقاب يشبهها.</p>
+    <div class="inscription">
+      <span class="it">Lasciate ogne speranza, voi ch'intrate</span>
+      <q>أيها الداخلون، اتركوا وراءكم كل أمل</q>
+      <small>المكتوب على باب الجحيم · الأنشودة الثالثة</small>
+    </div>
+    <a class="begin" id="begin" href="#map">ابدأ النزول<small style="font-size:12px;color:var(--ink-faint)">الأصوات هتشتغل، والسماعات أحسن</small><span class="arrow"></span></a>
+  </header>
+
+  <p class="guide">في منتصف طريق حياته، يضلّ دانتي في غابة مظلمة. يظهر له روح الشاعر الروماني <b>فيرجيل</b> ليكون دليله، ويأخذه في الطريق الوحيد للنجاة: إلى الأسفل أولًا، عبر قمع هائل محفور في قلب الأرض حتى مركزها.</p>
+
+  <section class="mapsec section" id="map" data-sky="#160b0c" data-glow="#d0582c" data-num="الخريطة" data-name="شكل الجحيم" data-mode="ember" data-heat="0.3">
+    <div class="map-text">
+      <p class="eyebrow">خريطة الجحيم كما رسمها دانتي</p>
+      <h2>قمع تحت أورشليم</h2>
+      <p>تخيّل دانتي الجحيم حفرة هائلة على شكل قمع، تبدأ تحت مدينة أورشليم وتنتهي في مركز الأرض. حفرها سقوط إبليس من السماء، والتراب الذي أزاحه ارتفع في الجهة الأخرى من العالم وصار جبل المطهر.</p>
+      <p>تسع دوائر، كل واحدة أضيق من اللي فوقها، والخطيئة فيها أثقل. خطايا الهوى فوق، وخلف أسوار مدينة ديس يبدأ العنف والخداع والخيانة.</p>
+      <p class="hint">اضغط على أي دائرة في الخريطة عشان تنزل لها على طول</p>
+    </div>
+    <div class="map-wrap"><svg id="mapsvg" viewBox="0 0 600 720" role="img" aria-label="خريطة مقطعية لدوائر الجحيم التسع"></svg></div>
+  </section>
+
+  <section class="circle section" id="c1" style="--i:1;--c:#a99bc4" data-sky="#15121c" data-glow="#a99bc4" data-num="الدائرة ١" data-name="اللمبو" data-mode="ember" data-heat="0.15">
+    <div class="ring" aria-hidden="true"></div>
+    <div class="c-head"><span class="c-num">١</span><div class="c-titles"><p class="c-eyebrow">الدائرة الأولى · الأنشودة ٤</p><h2>اللِّمبو</h2><p class="c-sin">لم يعرفوا الإيمان</p></div></div>
+    <p class="c-body">أول الدوائر ليست نارًا. قلعة نبيلة وسط حقل أخضر، يسكنها حكماء وشعراء عاشوا قبل المسيحية أو ماتوا دون تعميد: هوميروس، أرسطو، سقراط، وابن سينا وابن رشد أيضًا. لا أحد يتعذّب هنا بجسده، لكن الكل يتنهّد.</p>
+    <dl class="c-meta">
+      <div><dt>سكّانها</dt><dd>الفلاسفة والشعراء والأطفال غير المعمّدين</dd></div>
+      <div><dt>العقاب</dt><dd>شوق أبدي إلى الله بلا أي رجاء في لقائه</dd></div>
+      <div><dt>القصاص المماثل</dt><dd>عاشوا بلا رجاء ديني، فبقوا في الرغبة دون أمل</dd></div>
+    </dl>
+  </section>
+
+  <section class="circle section" id="c2" style="--i:2;--c:#d4577a" data-sky="#1d0b17" data-glow="#d4577a" data-num="الدائرة ٢" data-name="الشهوة" data-mode="ember" data-heat="0.3">
+    <div class="ring" aria-hidden="true"></div>
+    <div class="c-head"><span class="c-num">٢</span><div class="c-titles"><p class="c-eyebrow">الدائرة الثانية · الأنشودة ٥</p><h2>الشهوة</h2><p class="c-sin">جعلوا الهوى سيّد العقل</p></div></div>
+    <p class="c-body">عند المدخل يجلس الملك مينوس، يسمع اعتراف كل روح ثم يلفّ ذيله حول جسده بعدد الدوائر التي ستنزلها. خلفه عاصفة سوداء لا تهدأ، تقذف الأرواح في الهواء كأسراب الطيور، ولا تتركها تستقر لحظة.</p>
+    <p class="figure">باولو وفرانشيسكا: عاشقان قُتلا معًا، وظلّا يدوران متعانقين في الريح إلى الأبد.<cite>القصة التي جعلت دانتي يسقط مغشيًا عليه</cite></p>
+    <dl class="c-meta">
+      <div><dt>سكّانها</dt><dd>كليوباترا، هيلين، باريس، تريستان</dd></div>
+      <div><dt>العقاب</dt><dd>عاصفة أبدية تقذفهم بلا راحة</dd></div>
+      <div><dt>القصاص المماثل</dt><dd>تركوا أنفسهم لرياح الرغبة، فصارت الريح سجنهم</dd></div>
+    </dl>
+  </section>
+
+  <section class="circle section" id="c3" style="--i:3;--c:#9fa36a" data-sky="#12130d" data-glow="#9fa36a" data-num="الدائرة ٣" data-name="الشراهة" data-mode="ember" data-heat="0.35">
+    <div class="ring" aria-hidden="true"></div>
+    <div class="c-head"><span class="c-num">٣</span><div class="c-titles"><p class="c-eyebrow">الدائرة الثالثة · الأنشودة ٦</p><h2>الشَّراهة</h2><p class="c-sin">عبدوا بطونهم</p></div></div>
+    <p class="c-body">مطر بارد ثقيل لا ينقطع، ممزوج بالبَرَد والثلج القذر، والأرض تحته طين نتن. يحرس المكان سِربيروس، الكلب ذو الرؤوس الثلاثة، ينهش الأرواح ويمزّقها. أسكته فيرجيل بقبضة من التراب رماها في أفواهه الجائعة.</p>
+    <dl class="c-meta">
+      <div><dt>الحارس</dt><dd>سِربيروس بثلاثة رؤوس وعيون حمراء</dd></div>
+      <div><dt>العقاب</dt><dd>يرقدون في الوحل تحت مطر عفن أبدي</dd></div>
+      <div><dt>القصاص المماثل</dt><dd>عاشوا للّذة، فصاروا هم الوليمة</dd></div>
+    </dl>
+  </section>
+
+  <section class="circle section" id="c4" style="--i:4;--c:#d9a441" data-sky="#191206" data-glow="#d9a441" data-num="الدائرة ٤" data-name="الجشع" data-mode="ember" data-heat="0.45">
+    <div class="ring" aria-hidden="true"></div>
+    <div class="c-head"><span class="c-num">٤</span><div class="c-titles"><p class="c-eyebrow">الدائرة الرابعة · الأنشودة ٧</p><h2>الجشع والتبذير</h2><p class="c-sin">أفسدوا علاقتهم بالمال</p></div></div>
+    <p class="c-body">جيشان من الأرواح، البخلاء في نصف الدائرة والمبذّرون في النصف الآخر. كل واحد يدفع بصدره ثقلًا ضخمًا، يلتقي الفريقان في المنتصف فيتصادمان ويصرخ كل منهما في الآخر: لماذا تكنز؟ لماذا تبعثر؟ ثم يستديران ويبدآن من جديد.</p>
+    <dl class="c-meta">
+      <div><dt>الحارس</dt><dd>بلوتوس، إله الثروة</dd></div>
+      <div><dt>العقاب</dt><dd>دحرجة أثقال لا تنتهي وتصادم أبدي</dd></div>
+      <div><dt>القصاص المماثل</dt><dd>ضيّعوا حياتهم في جمع ما لا قيمة له، فصار هو عذابهم</dd></div>
+    </dl>
+  </section>
+
+  <section class="circle section" id="c5" style="--i:5;--c:#5fae8c" data-sky="#08130f" data-glow="#5fae8c" data-num="الدائرة ٥" data-name="الغضب" data-mode="ember" data-heat="0.5">
+    <div class="ring" aria-hidden="true"></div>
+    <div class="c-head"><span class="c-num">٥</span><div class="c-titles"><p class="c-eyebrow">الدائرة الخامسة · الأنشودتان ٧–٨</p><h2>الغضب</h2><p class="c-sin">احترقوا بنار داخلهم</p></div></div>
+    <p class="c-body">مستنقع ستيكس الأسود. على سطحه يتعارك الغاضبون عرايا، يعضّون بعضهم ويمزقون لحم أنفسهم. وتحت الطين يختنق الكئيبون الصامتون، لا يظهر منهم إلا فقاعات تصعد إلى السطح. يعبر دانتي المستنقع في قارب فليجياس.</p>
+    <dl class="c-meta">
+      <div><dt>المكان</dt><dd>نهر ستيكس، على أسوار مدينة ديس</dd></div>
+      <div><dt>العقاب</dt><dd>عراك أبدي فوق الوحل، واختناق تحته</dd></div>
+      <div><dt>القصاص المماثل</dt><dd>غضب ظاهر يأكل نفسه، وغضب مكتوم يغرق صاحبه</dd></div>
+    </dl>
+  </section>
+
+  <section class="circle section" id="c6" style="--i:6;--c:#ff6a2b" data-sky="#1f0905" data-glow="#ff6a2b" data-num="الدائرة ٦" data-name="الهرطقة" data-mode="ember" data-heat="0.7">
+    <div class="ring" aria-hidden="true"></div>
+    <div class="c-head"><span class="c-num">٦</span><div class="c-titles"><p class="c-eyebrow">الدائرة السادسة · الأنشودتان ٩–١١</p><h2>الهرطقة</h2><p class="c-sin">أنكروا خلود الروح</p></div></div>
+    <p class="c-body">هنا يبدأ الجحيم السفلي. أبواب مدينة ديس الحديدية تُغلق في وجه فيرجيل، ولا تُفتح إلا بنزول ملاك من السماء. في الداخل سهل واسع من القبور المفتوحة، تشتعل النار في كل قبر حتى يتوهج حديده، وأغطيتها مرفوعة تنتظر يوم القيامة لتُغلق إلى الأبد.</p>
+    <dl class="c-meta">
+      <div><dt>سكّانها</dt><dd>من قالوا إن الروح تموت مع الجسد</dd></div>
+      <div><dt>العقاب</dt><dd>قبور ملتهبة ستُختم بعد يوم الحساب</dd></div>
+      <div><dt>القصاص المماثل</dt><dd>آمنوا أن القبر هو النهاية، فصار قبرهم أبديًا</dd></div>
+    </dl>
+  </section>
+
+  <section class="circle section" id="c7" style="--i:7;--c:#e0302a" data-sky="#280405" data-glow="#e0302a" data-num="الدائرة ٧" data-name="العنف" data-mode="ember" data-heat="0.9">
+    <div class="ring" aria-hidden="true"></div>
+    <div class="c-head"><span class="c-num">٧</span><div class="c-titles"><p class="c-eyebrow">الدائرة السابعة · الأنشودات ١٢–١٧</p><h2>العنف</h2><p class="c-sin">ثلاث حلقات بثلاثة أنواع من العنف</p></div></div>
+    <p class="c-body">يحرس المدخل المينوتور، نصف ثور ونصف إنسان. الحلقة الأولى نهر فليجيثون من الدم المغلي، يغلي فيه الطغاة والقتلة وفوقهم القناطير يرمونهم بالسهام. الثانية غابة أشجار سوداء بلا أوراق خضراء، تتألم إذا انكسر غصن منها. والثالثة صحراء من رمل ملتهب، تمطر سماؤها رقائق من النار ببطء كالثلج.</p>
+    <dl class="c-meta">
+      <div><dt>ضد الآخرين</dt><dd>نهر من الدم المغلي بعمق الجريمة</dd></div>
+      <div><dt>ضد النفس</dt><dd>أرواح صارت أشجارًا تنهشها الهاربيات</dd></div>
+      <div><dt>ضد الله والطبيعة</dt><dd>رمال محترقة ومطر من اللهب</dd></div>
+    </dl>
+  </section>
+
+  <section class="circle section" id="c8" style="--i:8;--c:#c7782f" data-sky="#130904" data-glow="#c7782f" data-num="الدائرة ٨" data-name="الاحتيال" data-mode="ember" data-heat="1">
+    <div class="ring" aria-hidden="true"></div>
+    <div class="c-head"><span class="c-num">٨</span><div class="c-titles"><p class="c-eyebrow">الدائرة الثامنة · الأنشودات ١٨–٣٠</p><h2>مالِبولجِه</h2><p class="c-sin">الاحتيال بكل أشكاله</p></div></div>
+    <p class="c-body">ينزل دانتي وفيرجيل على ظهر جيريون، وحش بوجه رجل أمين وجسد ثعبان. تحتهما عشرة خنادق حجرية متدرجة كحلقات الهدف، تربطها جسور صخرية. في كل خندق نوع من الخداع: المتملقون غارقون في القذارة، والمرتشون في القار المغلي، والمنافقون يمشون ببطء تحت عباءات ذهبية من الخارج ورصاص ثقيل من الداخل.</p>
+    <dl class="c-meta">
+      <div><dt>البنية</dt><dd>عشرة خنادق حلقية تسمّى «الحقائب الشريرة»</dd></div>
+      <div><dt>العقاب</dt><dd>عقاب مختلف لكل حيلة: نار، قار، ثعابين، أوبئة</dd></div>
+      <div><dt>القصاص المماثل</dt><dd>المنافق لامع من برّه وثقيل من جوّه، تمامًا كما عاش</dd></div>
+    </dl>
+  </section>
+
+  <section class="circle section ice" id="c9" style="--i:9;--c:#8fd0ff" data-sky="#061320" data-glow="#8fd0ff" data-num="الدائرة ٩" data-name="الخيانة" data-mode="snow" data-heat="0">
+    <div class="ring" aria-hidden="true"></div>
+    <div class="c-head"><span class="c-num">٩</span><div class="c-titles"><p class="c-eyebrow">الدائرة التاسعة · الأنشودات ٣١–٣٤</p><h2>كوكيتوس</h2><p class="c-sin">خيانة من وثقوا بهم</p></div></div>
+    <p class="c-body">المفاجأة في قاع الجحيم: لا نار على الإطلاق. بحيرة متجمدة صلبة كالزجاج، تجمّدها رياح تهبّ من أجنحة ضخمة. الخونة محبوسون في الجليد بدرجات، كلما عظمت الخيانة غاصوا أعمق، حتى يُدفن الأسوأ بالكامل، يظهرون تحت السطح كالقش داخل الزجاج.</p>
+    <dl class="c-meta">
+      <div><dt>الحلقات الأربع</dt><dd>خونة الأهل، الوطن، الضيوف، والسادة</dd></div>
+      <div><dt>العقاب</dt><dd>تجمّد أبدي، حتى الدموع تتجمد في العيون</dd></div>
+      <div><dt>القصاص المماثل</dt><dd>قلوب باردة تجاه من أحبّوهم، فصار البرد مصيرهم</dd></div>
+    </dl>
+    <div class="lucifer">
+      <div class="wings" aria-hidden="true">
+        <svg viewBox="-320 -170 640 340" preserveAspectRatio="xMidYMid meet">
+          <defs><path id="wing" d="M0 0 C40 -60 150 -125 290 -112 C268 -84 262 -62 270 -38 C238 -50 212 -40 200 -18 C180 -34 150 -30 138 -6 C112 -22 82 -18 72 6 C50 -6 24 -4 0 0Z"/></defs>
+          <g class="flap"><g transform="rotate(-26)"><use href="#wing"/></g><g transform="rotate(2) scale(.92)"><use href="#wing"/></g><g transform="rotate(28) scale(.8)"><use href="#wing"/></g></g>
+          <g class="flap l"><g transform="scale(-1,1)"><g transform="rotate(-26)"><use href="#wing"/></g><g transform="rotate(2) scale(.92)"><use href="#wing"/></g><g transform="rotate(28) scale(.8)"><use href="#wing"/></g></g></g>
+        </svg>
+      </div>
+      <p class="c-eyebrow">في مركز الأرض تمامًا · الأنشودة ٣٤</p>
+      <h3 class="luc-name">إبليس</h3>
+      <p class="luc-it">Lo 'mperador del doloroso regno</p>
+      <p class="luc-desc">«إمبراطور مملكة الألم». عملاق مدفون في الجليد حتى منتصف صدره، له ثلاثة وجوه في رأس واحد، وتحت كل وجه جناحان بلا ريش كأجنحة الخفافيش. يبكي من ست عيون، وتسيل الدموع مختلطة بالدم على ذقونه الثلاثة. ورفرفة أجنحته هي الريح التي تجمّد البحيرة كلها.</p>
+      <div class="shards">
+        <article class="shard" style="--f:#d9c47c">
+          <span class="sh-face">الوجه الأيمن · أصفر شاحب</span>
+          <h4>كاسيوس</h4>
+          <p class="sh-bet">خان يوليوس قيصر</p>
+          <p>معلّق من الفم ورأسه إلى الخارج. شارك في مؤامرة اغتيال قيصر سنة ٤٤ قبل الميلاد.</p>
+        </article>
+        <article class="shard main" style="--f:#d0301e">
+          <span class="sh-face">الوجه الأمامي · أحمر</span>
+          <h4>يهوذا الإسخريوطي</h4>
+          <p class="sh-bet">خان المسيح</p>
+          <p>أسوأ الخونة عند دانتي. رأسه داخل الفم وساقاه تركلان في الهواء، والمخالب تسلخ ظهره بلا توقف.</p>
+        </article>
+        <article class="shard" style="--f:#151015">
+          <span class="sh-face">الوجه الأيسر · أسود</span>
+          <h4>بروتوس</h4>
+          <p class="sh-bet">خان يوليوس قيصر</p>
+          <p>متدلٍّ من الفم الأسود ورأسه إلى الخارج، يتلوّى ولا ينطق بكلمة واحدة.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="exit section" id="exit" data-sky="#04071a" data-glow="#c6ccff" data-num="الخروج" data-name="إلى النجوم" data-mode="stars" data-heat="0">
+    <p class="eyebrow">الأنشودة ٣٤ · السطر الأخير</p>
+    <p class="c-body" style="color:var(--ink-dim)">يتسلق دانتي وفيرجيل شعر إبليس نفسه. عند مركز الأرض ينقلب كل شيء، فيصبح النزول صعودًا، ويخرجان عبر نفق ضيق إلى الجهة الأخرى من العالم.</p>
+    <span class="it">E quindi uscimmo a riveder le stelle</span>
+    <q>ومن هناك خرجنا، لنرى النجوم من جديد</q>
+    <div class="note">
+      <h3>من الشرق إلى فلورنسا؟</h3>
+      <p>عام ١٩١٩ طرح المستشرق الإسباني ميغيل آسين بلاثيوس فرضية أن دانتي تأثّر بقصص الإسراء والمعراج التي تُرجمت إلى اللاتينية في عصره، وهي فرضية ما زال الباحثون يتجادلون حولها حتى اليوم. ونقل الدكتور حسن عثمان الكوميديا الإلهية إلى العربية في ترجمة صارت المرجع الأشهر لها.</p>
+    </div>
+  </section>
+</main>
+<footer dir="rtl">مستوحى من «الجحيم»، الجزء الأول من الكوميديا الإلهية لدانتي أليغييري</footer>
+
+<script>
+(function(){
+  const sections=[...document.querySelectorAll('.section')];
+  const body=document.body;
+  const gauge=document.querySelector('.gauge');
+  const pillNum=document.getElementById('pillNum'), pillName=document.getElementById('pillName');
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // funnel gauge: 9 rings narrowing downward
+  const circles=sections.filter(s=>s.classList.contains('circle'));
+  circles.forEach((s,i)=>{
+    const b=document.createElement('button');
+    b.style.width=(54-i*5)+'px';
+    b.setAttribute('aria-label',s.dataset.num+' · '+s.dataset.name);
+    b.title=s.dataset.name;
+    b.addEventListener('click',()=>s.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'}));
+    gauge.appendChild(b); s._btn=b;
+  });
+  const lbl=document.createElement('span'); lbl.className='lbl'; lbl.textContent='العمق'; gauge.appendChild(lbl);
+
+  let mode='ember', heat=.25;
+  function activate(s){
+    body.style.setProperty('--sky',s.dataset.sky);
+    body.style.setProperty('--glow',s.dataset.glow);
+    sections.forEach(x=>x.classList.toggle('on',x===s));
+    circles.forEach(c=>c._btn.classList.toggle('on',c===s));
+    pillNum.textContent=s.dataset.num; pillName.textContent=s.dataset.name;
+    mode=s.dataset.mode; heat=parseFloat(s.dataset.heat)||0;
+    setSound(s.id);
+  }
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting) activate(e.target); });
+  },{rootMargin:'-45% 0px -45% 0px'});
+  sections.forEach(s=>io.observe(s));
+  activate(sections[0]);
+
+  // particles: embers rise, snow falls in the ice, stars at the exit
+  const cv=document.getElementById('fx'), ctx=cv.getContext('2d');
+  let W,H,dpr; const P=[];
+  function size(){dpr=Math.min(devicePixelRatio||1,2); W=innerWidth; H=innerHeight; cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);}
+  size(); addEventListener('resize',size);
+  const N=innerWidth<640?55:110;
+  function spawn(p,init){
+    p.m=mode; p.x=Math.random()*W; p.life=0;
+    if(mode==='ember'){ p.y=init?Math.random()*H:H+10; p.vy=-(0.4+Math.random()*1.4)*(0.6+heat); p.vx=(Math.random()-.5)*.5; p.r=.6+Math.random()*2.2*(0.5+heat); p.h=10+Math.random()*35; }
+    else if(mode==='snow'){ p.y=init?Math.random()*H:-10; p.vy=.3+Math.random()*1; p.vx=(Math.random()-.5)*.6; p.r=.6+Math.random()*2.2; }
+    else { p.y=Math.random()*H; p.vy=0; p.vx=0; p.r=.3+Math.random()*1.4; p.t=Math.random()*6.28; }
+  }
+  for(let i=0;i<N;i++){const p={}; spawn(p,true); P.push(p);}
+  let t=0;
+  function frame(){
+    t+=.016; ctx.clearRect(0,0,W,H);
+    for(const p of P){
+      if(p.m==='stars'){
+        if(mode!=='stars'&&Math.random()<.02){spawn(p,true); continue;}
+        const a=.35+.65*Math.abs(Math.sin(t*.8+p.t));
+        ctx.fillStyle=`rgba(225,230,255,${a})`; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.283); ctx.fill(); continue;
+      }
+      p.x+=p.vx+Math.sin(t+p.y*.01)*.3; p.y+=p.vy; p.life++;
+      if(p.m==='ember'){
+        const a=Math.max(0,Math.min(1,p.y/H))*.9;
+        ctx.fillStyle=`hsla(${p.h},100%,${55+heat*10}%,${a})`;
+        ctx.shadowColor=`hsla(${p.h},100%,55%,1)`; ctx.shadowBlur=8;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.283); ctx.fill(); ctx.shadowBlur=0;
+        if(p.y<-20) spawn(p,false);
+      } else {
+        ctx.fillStyle='rgba(215,238,255,.8)'; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.283); ctx.fill();
+        if(p.y>H+20) spawn(p,false);
+      }
+      if(mode==='stars'&&p.m!=='stars'&&Math.random()<.03) spawn(p,true);
+    }
+    requestAnimationFrame(frame);
+  }
+  if(!reduce) requestAnimationFrame(frame);
+
+  /* ================= MAP ================= */
+  (function buildMap(){
+    const svg=document.getElementById('mapsvg'); if(!svg) return;
+    const NS='http://www.w3.org/2000/svg';
+    const el=(n,a,p)=>{const e=document.createElementNS(NS,n); for(const k in a) e.setAttribute(k,a[k]); (p||svg).appendChild(e); return e;};
+    const lv=[{id:null,num:'·',name:'الدهليز',c:'#8a7f78'}].concat(circles.map((s,i)=>({id:s.id,num:'١٢٣٤٥٦٧٨٩'[i],name:s.dataset.name,c:s.style.getPropertyValue('--c').trim()})));
+    const cx=212, top=78, bh=56, half=i=>192-i*17.2;
+    // ground + Jerusalem
+    el('path',{d:'M6 '+(top-6)+' Q'+cx+' '+(top-22)+' 418 '+(top-6),fill:'none',stroke:'#7d6f63','stroke-width':1.5});
+    el('path',{d:`M${cx-9} ${top-20} h18 v-8 a9 9 0 0 0 -18 0z`,fill:'#c9a86a'});
+    el('line',{x1:cx,y1:top-37,x2:cx,y2:top-43,stroke:'#c9a86a','stroke-width':2});
+    const jt=el('text',{x:cx,y:top-50,'text-anchor':'middle',fill:'#c9b896','font-size':17,'font-family':'IBM Plex Sans Arabic, sans-serif'}); jt.textContent='أورشليم';
+    lv.forEach((L,i)=>{
+      const y0=top+i*bh, y1=y0+bh, h0=half(i), h1=half(i+1);
+      const g=L.id?el('a',{href:'#'+L.id,class:'lv','aria-label':'الدائرة '+L.num+' '+L.name}):el('g',{});
+      el('polygon',{class:'band',points:`${cx-h0},${y0} ${cx+h0},${y0} ${cx+h1+9},${y1} ${cx-h1-9},${y1}`,fill:L.c,'fill-opacity':.24,stroke:L.c,'stroke-opacity':.85,'stroke-width':1.4},g);
+      el('ellipse',{cx:cx,cy:y0,rx:h0,ry:Math.max(3,h0*.085),fill:'none',stroke:L.c,'stroke-opacity':.55},g);
+      const ym=y0+bh/2, xe=cx+(h0+h1)/2+8;
+      el('line',{x1:xe,y1:ym,x2:436,y2:ym,stroke:L.c,'stroke-opacity':.45,'stroke-dasharray':'2 4'},g);
+      el('circle',{cx:436,cy:ym,r:2.5,fill:L.c},g);
+      const tn=el('text',{x:592,y:ym+9,'text-anchor':'end',fill:L.c,'font-size':28,'font-family':'Aref Ruqaa, serif'},g); tn.textContent=L.num;
+      const tl=el('text',{class:'lbl-name',x:562,y:ym+7,'text-anchor':'end',fill:'#cdbfb0','font-size':21,'font-family':'Noto Naskh Arabic, serif'},g); tl.textContent=L.name;
+      el('rect',{x:0,y:y0,width:600,height:bh,fill:'transparent'},g);
+    });
+    const div=(i,col,w,txt)=>{const y=top+i*bh; el('line',{x1:cx-half(i)-4,y1:y,x2:cx+half(i)+4,y2:y,stroke:col,'stroke-width':w,'stroke-linecap':'round'});
+      const t=el('text',{x:592,y:y+5,'text-anchor':'end',fill:col,'font-size':14,'font-family':'IBM Plex Sans Arabic, sans-serif'}); t.textContent=txt;};
+    div(1,'#5a8fc2',3,'نهر أخيرون');
+    div(6,'#d0402a',4.5,'أسوار مدينة ديس');
+    div(8,'#a36a2c',2.5,'هاوية جيريون');
+    const yb=top+10*bh;
+    el('polygon',{points:`${cx},${yb+4} ${cx+12},${yb+20} ${cx},${yb+36} ${cx-12},${yb+20}`,fill:'#bfe6ff',stroke:'#e9f6ff','stroke-width':1});
+    const tb=el('text',{x:cx,y:yb+62,'text-anchor':'middle',fill:'#bfe6ff','font-size':17,'font-family':'IBM Plex Sans Arabic, sans-serif'}); tb.textContent='إبليس · مركز الأرض';
+  })();
+
+  /* ================= SOUND (synthesised, no files) ================= */
+  var SND={
+    gate:{drone:.5,wind:.3,fire:.15,moan:.25,scream:.06},
+    map:{drone:.5,wind:.3,fire:.2,moan:.3,scream:.1},
+    c1:{drone:.3,wind:.15,moan:.35,sigh:1},
+    c2:{drone:.45,wind:1,moan:.5,scream:.45},
+    c3:{drone:.5,wind:.2,rain:1,moan:.5,scream:.12,growl:.7},
+    c4:{drone:.6,moan:.4,scream:.3,fire:.1,thud:.9},
+    c5:{drone:.7,wind:.15,moan:.6,scream:.5,bubble:.9},
+    c6:{drone:.7,fire:1,moan:.55,scream:.5},
+    c7:{drone:.9,fire:.8,moan:.6,scream:1},
+    c8:{drone:.9,fire:.5,moan:.8,scream:.7,thud:.4},
+    c9:{drone:.35,wind:1,windHi:1,moan:.12,shimmer:.9},
+    exit:{drone:.04,wind:.05,pad:1}
+  };
+  var ac=null, sndOn=false, curSnd=SND.gate, A={}, voices=0, tickT=null;
+  const sndBtn=document.getElementById('snd'), sndLbl=document.getElementById('sndLbl');
+  const R=Math.random;
+  function setSound(id){ if(!SND) return; curSnd=SND[id]||SND.gate; if(ac&&sndOn) applySnd(curSnd); }
+  function g(v){const n=ac.createGain(); n.gain.value=v||0; return n;}
+  function bq(type,f,q){const n=ac.createBiquadFilter(); n.type=type; n.frequency.value=f; if(q) n.Q.value=q; return n;}
+  function lfo(f,depth,target){const o=ac.createOscillator(); o.frequency.value=f; const d=g(depth); o.connect(d).connect(target); o.start();}
+  function loopNoise(){const s=ac.createBufferSource(); s.buffer=A.noise; s.loop=true; s.start(0,R()*1.5); return s;}
+  function initAudio(){
+    ac=new (window.AudioContext||window.webkitAudioContext)();
+    const sr=ac.sampleRate;
+    A.noise=ac.createBuffer(1,sr*2,sr); {const d=A.noise.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=R()*2-1;}
+    const comp=ac.createDynamicsCompressor(); comp.threshold.value=-16; comp.ratio.value=6; comp.connect(ac.destination);
+    A.master=g(0); A.master.connect(comp);
+    const rev=ac.createConvolver(); const len=sr*5, ir=ac.createBuffer(2,len,sr);
+    for(let c=0;c<2;c++){const d=ir.getChannelData(c); for(let i=0;i<len;i++) d[i]=(R()*2-1)*Math.pow(1-i/len,2.4);}
+    rev.buffer=ir; const ro=g(.55); rev.connect(ro).connect(A.master);
+    A.bus=g(1); A.bus.connect(A.master); A.bus.connect(rev);
+    // drone: low detuned saws breathing through a moving filter
+    A.dG=g(0); const dl=bq('lowpass',150,5); [41.2,41.9,82.6,61.7].forEach(f=>{const o=ac.createOscillator(); o.type='sawtooth'; o.frequency.value=f; o.connect(dl); o.start();});
+    const sub=ac.createOscillator(); sub.frequency.value=30.9; const sg=g(.6); sub.connect(sg).connect(A.dG); sub.start();
+    dl.connect(A.dG).connect(A.bus); lfo(.06,70,dl.frequency);
+    // wind
+    A.wBP=bq('bandpass',500,.9); A.wG=g(0); const gust=g(.7); loopNoise().connect(A.wBP).connect(A.wG).connect(gust).connect(A.bus);
+    lfo(.09,320,A.wBP.frequency); lfo(.14,.3,gust.gain);
+    // rain
+    A.rG=g(0); loopNoise().connect(bq('highpass',2800)).connect(A.rG).connect(A.master);
+    // fire roar
+    A.fG=g(0); const fl=bq('lowpass',380,1); loopNoise().connect(fl).connect(A.fG).connect(A.bus); lfo(.3,120,fl.frequency);
+    // heavenly pad for the exit
+    A.pG=g(0); [220,277.18,329.63,440,554.37].forEach((f,i)=>{const o=ac.createOscillator(); o.frequency.value=f; o.detune.value=(i%2?4:-4); o.connect(A.pG); o.start();}); A.pG.connect(A.bus);
+  }
+  function tgt(p,v){p.setTargetAtTime(v,ac.currentTime,1.2);}
+  function applySnd(p){
+    tgt(A.dG.gain,(p.drone||0)*.42); tgt(A.wG.gain,(p.wind||0)*.42); tgt(A.wBP.frequency,p.windHi?1500:480);
+    tgt(A.rG.gain,(p.rain||0)*.1); tgt(A.fG.gain,(p.fire||0)*.5); tgt(A.pG.gain,(p.pad||0)*.045);
+  }
+  const VOW={a:[800,1150,2900],o:[450,800,2830],u:[325,700,2530],e:[400,1700,2600]};
+  function voice(kind){
+    if(voices>7) return; voices++;
+    const t=ac.currentTime, scream=kind==='scream', sigh=kind==='sigh';
+    const dur=scream?1.1+R()*1.6:2.4+R()*3.2;
+    const f0=scream?360+R()*320:sigh?105+R()*60:80+R()*150;
+    const o=ac.createOscillator(); o.type='sawtooth';
+    if(scream){o.frequency.setValueAtTime(f0*.8,t); o.frequency.linearRampToValueAtTime(f0*1.2,t+dur*.3); o.frequency.linearRampToValueAtTime(f0*.55,t+dur);}
+    else {o.frequency.setValueAtTime(f0,t); o.frequency.linearRampToValueAtTime(f0*(.72+R()*.15),t+dur);}
+    const vib=ac.createOscillator(); vib.frequency.value=scream?6.5+R()*2:4+R()*1.5; const vg=g(f0*(scream?.045:.025)); vib.connect(vg).connect(o.frequency);
+    const env=g(0), peak=scream?.55:sigh?.45:.75;
+    env.gain.setValueAtTime(0,t); env.gain.linearRampToValueAtTime(peak,t+(scream?.12:.7+R()*.5));
+    env.gain.setTargetAtTime(0,t+dur*.7,dur*.15);
+    const v1=scream?VOW.a:(R()<.5?VOW.o:VOW.a), v2=scream?VOW.e:VOW.u;
+    const breath=ac.createBufferSource(); breath.buffer=A.noise; const bg=g(sigh?.25:.06); breath.connect(bg);
+    v1.forEach((f,i)=>{const b=bq('bandpass',f,f/(70+i*40)); b.frequency.setTargetAtTime(v2[i],t+dur*.3,dur*.3); const w=g([1,.5,.22][i]); o.connect(b); bg.connect(b); b.connect(w).connect(env);});
+    const far=bq('lowpass',scream?3200:2000);
+    const pan=ac.createStereoPanner?ac.createStereoPanner():g(1); if(pan.pan) pan.pan.value=R()*1.6-.8;
+    env.connect(far).connect(pan).connect(A.bus);
+    const end=t+dur+1.5; o.start(t); vib.start(t); breath.start(t,R()); o.stop(end); vib.stop(end); breath.stop(end);
+    o.onended=()=>{voices--;};
+  }
+  function crackle(lv){
+    const t=ac.currentTime, s=ac.createBufferSource(); s.buffer=A.noise;
+    const h=bq('highpass',1500+R()*3500), e=g(0); e.gain.setValueAtTime(lv*(.25+R()*.6),t); e.gain.exponentialRampToValueAtTime(.001,t+.01+R()*.05);
+    s.connect(h).connect(e).connect(A.bus); s.start(t,R()*1.5,.08);
+  }
+  function thud(){
+    const t=ac.currentTime, o=ac.createOscillator(); o.frequency.setValueAtTime(70,t); o.frequency.exponentialRampToValueAtTime(28,t+.5);
+    const e=g(0); e.gain.setValueAtTime(.9,t); e.gain.exponentialRampToValueAtTime(.001,t+.7); o.connect(e).connect(A.bus); o.start(t); o.stop(t+.8);
+    const s=ac.createBufferSource(); s.buffer=A.noise; const l=bq('lowpass',300), e2=g(0); e2.gain.setValueAtTime(.6,t); e2.gain.exponentialRampToValueAtTime(.001,t+.35); s.connect(l).connect(e2).connect(A.bus); s.start(t,R(),.4);
+  }
+  function bubble(){
+    const n=2+Math.floor(R()*3);
+    for(let k=0;k<n;k++){const t=ac.currentTime+k*.07+R()*.05, o=ac.createOscillator(), f=120+R()*160;
+      o.frequency.setValueAtTime(f,t); o.frequency.exponentialRampToValueAtTime(f*2.6,t+.09);
+      const e=g(0); e.gain.setValueAtTime(.22,t); e.gain.exponentialRampToValueAtTime(.001,t+.12); o.connect(e).connect(A.bus); o.start(t); o.stop(t+.15);}
+  }
+  function ping(){
+    const t=ac.currentTime, o=ac.createOscillator(); o.frequency.value=1700+R()*2400;
+    const e=g(0); e.gain.setValueAtTime(.06,t); e.gain.exponentialRampToValueAtTime(.0005,t+2.4); o.connect(e).connect(A.bus); o.start(t); o.stop(t+2.5);
+  }
+  function growl(){
+    for(let k=0;k<3;k++){const t=ac.currentTime+k*.18, o=ac.createOscillator(); o.type='sawtooth'; o.frequency.value=52+R()*22;
+      const am=ac.createOscillator(); am.frequency.value=22+R()*10; const amg=g(.5); am.connect(amg);
+      const e=g(0); amg.connect(e.gain); e.gain.setValueAtTime(0,t); e.gain.linearRampToValueAtTime(.5,t+.25); e.gain.setTargetAtTime(0,t+1.1,.25);
+      o.connect(bq('lowpass',420,3)).connect(e).connect(A.bus); o.start(t); am.start(t); o.stop(t+2.2); am.stop(t+2.2);}
+  }
+  function tick(){
+    const p=curSnd;
+    if(R()<(p.fire||0)*.55) crackle(p.fire);
+    if(R()<(p.moan||0)*.035) voice('moan');
+    if(R()<(p.scream||0)*.022) voice('scream');
+    if(p.sigh&&R()<.022) voice('sigh');
+    if(R()<(p.thud||0)*.014) thud();
+    if(R()<(p.bubble||0)*.04) bubble();
+    if(R()<(p.shimmer||0)*.03) ping();
+    if(R()<(p.growl||0)*.007) growl();
+  }
+  function startSound(){
+    try{
+      if(!ac) initAudio();
+      ac.resume(); sndOn=true; applySnd(curSnd); A.master.gain.setTargetAtTime(.9,ac.currentTime,.6);
+      if(!tickT) tickT=setInterval(()=>{ if(sndOn) tick(); },100);
+      voice('scream'); setTimeout(()=>sndOn&&voice('moan'),900);
+    }catch(e){ sndLbl.textContent='الصوت مش مدعوم هنا'; return; }
+    sndBtn.classList.add('on'); sndBtn.setAttribute('aria-pressed','true'); sndLbl.textContent='اكتم الأصوات';
+  }
+  function stopSound(){
+    sndOn=false; if(ac) A.master.gain.setTargetAtTime(0,ac.currentTime,.3);
+    sndBtn.classList.remove('on'); sndBtn.setAttribute('aria-pressed','false'); sndLbl.textContent='شغّل الأصوات';
+  }
+  sndBtn.addEventListener('click',()=>sndOn?stopSound():startSound());
+  document.getElementById('begin').addEventListener('click',()=>{ if(!sndOn) startSound(); });
+  document.addEventListener('visibilitychange',()=>{ if(!ac) return; if(document.hidden) ac.suspend(); else if(sndOn) ac.resume(); });
+
+  /* ================= SWORD CURSOR ================= */
+  if(matchMedia('(pointer: fine)').matches){
+    document.documentElement.classList.add('has-sword');
+    const sw=document.getElementById('sword'), cc=document.getElementById('cur'), cx2=cc.getContext('2d');
+    let CW,CH,cd; const F=[]; let mx=-200,my=-200,lx=-200,ly=-200,shown=false;
+    function cs(){cd=Math.min(devicePixelRatio||1,2); CW=innerWidth; CH=innerHeight; cc.width=CW*cd; cc.height=CH*cd; cx2.setTransform(cd,0,0,cd,0,0);}
+    cs(); addEventListener('resize',cs);
+    function emit(n,burst){
+      for(let i=0;i<n;i++){
+        const t=burst?R()*.15:R()*.75;
+        F.push({x:mx+t*28+(R()-.5)*3,y:my+t*28+(R()-.5)*3,
+          vx:burst?(R()-.5)*5:(R()-.5)*.8,vy:burst?-(R()*5+1):-(R()*1.8+.6),
+          r:burst?2+R()*5:1.5+R()*4,life:1,d:.018+R()*.03});
+      }
+      if(F.length>420) F.splice(0,F.length-420);
+    }
+    addEventListener('mousemove',e=>{
+      mx=e.clientX; my=e.clientY;
+      sw.style.transform=`translate(${mx-2}px,${my-2}px)`;
+      if(!shown){shown=true; sw.style.opacity=1;}
+      const d=Math.hypot(mx-lx,my-ly); lx=mx; ly=my;
+      if(!reduce) emit(Math.min(7,1+(d/5|0)));
+      sw.classList.toggle('hot',!!(e.target.closest&&e.target.closest('a,button,.lv,.shard')));
+    },{passive:true});
+    addEventListener('mousedown',()=>{sw.classList.add('down'); if(!reduce) emit(45,true);});
+    addEventListener('mouseup',()=>sw.classList.remove('down'));
+    document.addEventListener('mouseleave',()=>{sw.style.opacity=0; shown=false;});
+    function fire(){
+      cx2.clearRect(0,0,CW,CH);
+      if(shown&&!reduce&&R()<.6) emit(1);
+      cx2.globalCompositeOperation='lighter';
+      for(let i=F.length-1;i>=0;i--){
+        const p=F[i]; p.x+=p.vx+Math.sin(p.y*.05)*.3; p.y+=p.vy; p.vy-=.03; p.life-=p.d; p.r*=.985;
+        if(p.life<=0){F.splice(i,1); continue;}
+        const hue=12+p.life*40, a=p.life*.85;
+        const gr=cx2.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.2);
+        gr.addColorStop(0,`hsla(${hue+10},100%,${60+p.life*30}%,${a})`); gr.addColorStop(1,`hsla(${hue},100%,45%,0)`);
+        cx2.fillStyle=gr; cx2.beginPath(); cx2.arc(p.x,p.y,p.r*2.2,0,6.283); cx2.fill();
+      }
+      cx2.globalCompositeOperation='source-over';
+      requestAnimationFrame(fire);
+    }
+    requestAnimationFrame(fire);
+  }
+})();
+</script>
+</body>
+</html>
